@@ -76,7 +76,7 @@ public class SilentTransactions extends LessonAdapter
 					s.getResponse().setContentType("text/html");
 					s.getResponse().setHeader("Cache-Control", "no-cache");
 					PrintWriter out = new PrintWriter(s.getResponse().getOutputStream());
-					StringBuffer result = new StringBuffer();
+					StringBuffer result = new StringBuffer(64) // CAST fix: pre-sized buffer;
 					result.append("<br><br>* Congratulations. You have successfully completed this lesson.<br>");
 					if (!amount.equals(""))
 					{
@@ -107,7 +107,7 @@ public class SilentTransactions extends LessonAdapter
 			}
 		} catch (Exception ex)
 		{
-			ex.printStackTrace();
+			System.err.println("Error: " + ex.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		Form form = new Form(getFormAction(), Form.POST).setName("form").setEncType("");
