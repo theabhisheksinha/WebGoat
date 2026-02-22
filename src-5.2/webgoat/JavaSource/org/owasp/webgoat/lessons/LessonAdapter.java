@@ -194,6 +194,7 @@ public abstract class LessonAdapter extends AbstractLesson
 			}
 		} catch (Exception e)
 		{
+			System.out.println("Warning: failed to read lesson instructions: " + e.getMessage());
 		}
 
 		return buff.toString();
