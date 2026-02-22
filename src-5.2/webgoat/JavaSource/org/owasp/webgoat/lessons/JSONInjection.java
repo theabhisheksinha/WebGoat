@@ -84,7 +84,7 @@ public class JSONInjection extends LessonAdapter
 			}
 		} catch (Exception ex)
 		{
-			ex.printStackTrace();
+			System.err.println("Error: " + ex.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		Form form = new Form(getFormAction(), Form.POST).setName("form").setEncType("");
