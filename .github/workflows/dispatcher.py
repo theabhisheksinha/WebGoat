@@ -20,11 +20,12 @@ def trigger_remediation():
     INSTRUCTIONS:
     1. Connect to the 'cast-imaging-express' MCP server to identify specific structural issues.
     2. Identify all ISO-5055 Security flaws (e.g., SQL Injection, XSS) and ISO-5055 Performance flaws.
-    3. Create a new branch for the fix. 
-    4. Implement the remediations for the identified security and performance flaws.
-    5. Open a new Pull Request targeting the base branch 'WebGoat_5.2_Devin'.
-    6. Use the 'Devin Review' tool to perform an auto-review of your own changes, checking for regressions and ensuring high fix-confidence.
-    7. Once the auto-review is successful and the test suite passes, merge the fixes into the 'WebGoat_5.2_Devin' base branch.
+    3. Identify all  cloud detection pattern, Green Detection pattern, structural-flaws
+    4. Create a new branch for the fix. 
+    5. Implement the remediations for the identified security and performance flaws.
+    6. Open a new Pull Request targeting the base branch 'WebGoat_5.2_Devin'.
+    7. Use the 'Devin Review' tool to perform an auto-review of your own changes, checking for regressions and ensuring high fix-confidence.
+    8. Once the auto-review is successful and the test suite passes, merge the fixes into the 'WebGoat_5.2_Devin' base branch.
     """
 
     # 2. Define Structured Output (For your VP Dashboard visibility)
