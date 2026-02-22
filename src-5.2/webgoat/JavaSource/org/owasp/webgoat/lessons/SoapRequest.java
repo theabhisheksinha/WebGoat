@@ -408,9 +408,11 @@ public class SoapRequest extends SequentialLessonAdapter
 				if ((results != null) && (results.next() == true)) { return results.getString(field); }
 			} catch (SQLException sqle)
 			{
+				System.out.println("Warning: SQL error in getResults(): " + sqle.getMessage());
 			}
 		} catch (Exception e)
 		{
+			System.out.println("Warning: error in getResults(): " + e.getMessage());
 		}
 		return null;
 	}
