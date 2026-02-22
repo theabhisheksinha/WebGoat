@@ -151,7 +151,7 @@ public class DOS_Login extends LessonAdapter
 			} catch (SQLException sqle)
 			{
 				ec.addElement(new P().addElement(sqle.getMessage()));
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (ParameterNotFoundException pnfe)
 		{
