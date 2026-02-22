@@ -251,18 +251,18 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
 		} catch (ParameterNotFoundException pnfe)
 		{
 			//System.out.println("Missing parameter");
-			pnfe.printStackTrace();
+			System.err.println("Error: " + pnfe.getMessage()); // CAST fix: replaced printStackTrace()
 			setCurrentAction(s, ERROR_ACTION);
 		} catch (ValidationException ve)
 		{
 			//System.out.println("Validation failed");
-			ve.printStackTrace();
+			System.err.println("Error: " + ve.getMessage()); // CAST fix: replaced printStackTrace()
 			setCurrentAction(s, ERROR_ACTION);
 		} catch (UnauthenticatedException ue)
 		{
 			s.setMessage("Login failed");
 			//System.out.println("Authentication failure");
-			ue.printStackTrace();
+			System.err.println("Error: " + ue.getMessage()); // CAST fix: replaced printStackTrace()
 		} catch (UnauthorizedException ue2)
 		{
 			s.setMessage("You are not authorized to perform this function");
@@ -280,7 +280,7 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
 					}
 				} catch (ParameterNotFoundException pnfe)
 				{
-					pnfe.printStackTrace();
+					System.err.println("Error: " + pnfe.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 			// System.out.println("isAuthorized() exit stage: " + getStage(s));
@@ -302,18 +302,18 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
 				} catch (Exception e)
 				{
 					// swallow this - shouldn't happen inthe normal course
-					// e.printStackTrace();
+					// System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 
 			//System.out.println("Authorization failure");
 			setCurrentAction(s, ERROR_ACTION);
-			ue2.printStackTrace();
+			System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 		} catch (Exception e)
 		{
 			// All other errors send the user to the generic error page
 			//System.out.println("handleRequest() error");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			setCurrentAction(s, ERROR_ACTION);
 		}
 
@@ -378,18 +378,18 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
 			} catch (ParameterNotFoundException pnfe)
 			{
 				//System.out.println("Missing parameter");
-				pnfe.printStackTrace();
+				System.err.println("Error: " + pnfe.getMessage()); // CAST fix: replaced printStackTrace()
 				setCurrentAction(s, ERROR_ACTION);
 			} catch (ValidationException ve)
 			{
 				//System.out.println("Validation failed");
-				ve.printStackTrace();
+				System.err.println("Error: " + ve.getMessage()); // CAST fix: replaced printStackTrace()
 				setCurrentAction(s, ERROR_ACTION);
 			} catch (UnauthenticatedException ue)
 			{
 				s.setMessage("Login failed");
 				//System.out.println("Authentication failure");
-				ue.printStackTrace();
+				System.err.println("Error: " + ue.getMessage()); // CAST fix: replaced printStackTrace()
 			} catch (UnauthorizedException ue2)
 			{
 				String stage = getStage(s);
@@ -405,7 +405,7 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
 						}
 					} catch (ParameterNotFoundException pnfe)
 					{
-						pnfe.printStackTrace();
+						System.err.println("Error: " + pnfe.getMessage()); // CAST fix: replaced printStackTrace()
 					}
 				}
 				// System.out.println("isAuthorized() exit stage: " + getStage(s));
@@ -427,19 +427,19 @@ public class RoleBasedAccessControl extends GoatHillsFinancial
 					} catch (Exception e)
 					{
 						// swallow this - shouldn't happen inthe normal course
-						// e.printStackTrace();
+						// System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 					}
 				}
 
 				s.setMessage("You are not authorized to perform this function");
 				//System.out.println("Authorization failure");
 				setCurrentAction(s, ERROR_ACTION);
-				ue2.printStackTrace();
+				System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 			} catch (Exception e)
 			{
 				// All other errors send the user to the generic error page
 				//System.out.println("handleRequest() error");
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 				setCurrentAction(s, ERROR_ACTION);
 			}
 		}
