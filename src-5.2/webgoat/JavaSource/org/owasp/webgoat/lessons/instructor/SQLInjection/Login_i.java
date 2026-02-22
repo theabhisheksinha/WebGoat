@@ -64,13 +64,13 @@ public class Login_i extends Login
 			catch ( SQLException sqle )
 			{
 				s.setMessage( "Error logging in" );
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		catch ( Exception e )
 		{
 			s.setMessage( "Error logging in" );
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		
 		//System.out.println("Lesson login result: " + authenticated);
