@@ -120,13 +120,16 @@ public class WebgoatContext
 		if (realConnectionString == null) try
 		{
 			String path = servlet.getServletContext().getRealPath("/database").replace('\\', '/');
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("PATH: " + path);
 			realConnectionString = databaseConnectionString.replaceAll("PATH", path);
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Database Connection String: " + realConnectionString);
 		} catch (Exception e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Couldn't open database: check web.xml database parameters");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return realConnectionString;
 	}
