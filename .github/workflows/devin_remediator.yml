@@ -1,0 +1,17 @@
+name: Devin Remediation Dispatcher
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  dispatch_to_devin:
+    if: github.event.label.name == 'devin-fix'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Devin API
+        env:
+          DEVIN_SERVICE_USER_TOKEN: ${{ secrets.DEVIN_TOKEN }}
+          DEVIN_ORG_ID: ${{ secrets.DEVIN_ORG_ID }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: python dispatcher.py
