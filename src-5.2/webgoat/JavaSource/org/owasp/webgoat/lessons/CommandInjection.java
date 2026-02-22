@@ -16,6 +16,7 @@ import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.util.Exec;
 import org.owasp.webgoat.util.ExecResults;
+import org.owasp.webgoat.util.HtmlEncoder;
 
 
 /***************************************************************************************************
@@ -127,9 +128,10 @@ public class CommandInjection extends LessonAdapter
 			}
 			File safeDir = new File(s.getContext().getRealPath("/lesson_plans"));
 
-			ec.addElement(new StringElement("You are currently viewing: <b>"
-					+ (helpFile.toString().length() == 0 ? "&lt;select file from list below&gt;" : helpFile.toString())
-					+ "</b>"));
+			// Fix: HTML-encode user input to prevent reflected XSS (CAST #8408 / CWE-79)
+				ec.addElement(new StringElement("You are currently viewing: <b>"
+						+ (helpFile.toString().length() == 0 ? "&lt;select file from list below&gt;" : HtmlEncoder.encode(helpFile.toString()))
+						+ "</b>"));
 
 			if (!illegalCommand)
 			{

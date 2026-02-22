@@ -136,13 +136,26 @@ public class XPATHInjection extends LessonAdapter
 			}
 
 			String dir = s.getContext().getRealPath("/lessons/XPATHInjection/EmployeesData.xml");
-			File d = new File(dir);
-			XPathFactory factory = XPathFactory.newInstance();
-			XPath xPath = factory.newXPath();
-			InputSource inputSource = new InputSource(new FileInputStream(d));
-			String expression = "/employees/employee[loginID/text()='" + username + "' and passwd/text()='" + password
-					+ "']";
-			nodes = (NodeList) xPath.evaluate(expression, inputSource, XPathConstants.NODESET);
+				File d = new File(dir);
+				XPathFactory factory = XPathFactory.newInstance();
+				XPath xPath = factory.newXPath();
+				InputSource inputSource = new InputSource(new FileInputStream(d));
+
+				// Fix: Use XPath variable resolver to prevent XPath injection (CAST #7750 / CWE-91)
+				final String safeUsername = username;
+				final String safePassword = password;
+				xPath.setXPathVariableResolver(new javax.xml.xpath.XPathVariableResolver() {
+					public Object resolveVariable(javax.xml.namespace.QName variableName) {
+						if ("username".equals(variableName.getLocalPart())) {
+							return safeUsername;
+						} else if ("password".equals(variableName.getLocalPart())) {
+							return safePassword;
+						}
+						return null;
+					}
+				});
+				String expression = "/employees/employee[loginID/text()=$username and passwd/text()=$password]";
+				nodes = (NodeList) xPath.evaluate(expression, inputSource, XPathConstants.NODESET);
 			int nodesLength = nodes.getLength();
 
 			Table t2 = null;
