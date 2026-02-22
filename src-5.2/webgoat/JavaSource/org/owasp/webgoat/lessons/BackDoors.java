@@ -114,7 +114,7 @@ public class BackDoors extends SequentialLessonAdapter
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -224,7 +224,7 @@ public class BackDoors extends SequentialLessonAdapter
 	protected Element makeUsername(WebSession s)
 	{
 		ElementContainer ec = new ElementContainer();
-		StringBuffer script = new StringBuffer();
+		StringBuffer script = new StringBuffer(64) // CAST fix: pre-sized buffer;
 		script.append("<STYLE TYPE=\"text/css\"> ");
 		script.append(".blocklabel { margin-top: 8pt; }");
 		script.append(".myClass 	{ color:red;");
