@@ -236,28 +236,41 @@ public class SummaryReportCardScreen extends LessonAdapter
 	 *            Description of the Parameter
 	 * @return Description of the Return Value
 	 */
-	protected Element makeUserSummaryRow(WebSession s, String user)
+	/**
+	 * Performance: extracted duplicate lesson-counting loop into a helper method
+	 * to reduce code duplication and improve maintainability.
+	 *
+	 * @return int array where [0] = passedCount, [1] = lessonCount
+	 */
+	private int[] countCompletedLessons(WebSession s, String user, String role)
 	{
-		TR tr = new TR();
-
-		tr.addElement(new TD().setAlign("LEFT").addElement(user));
 		int lessonCount = 0;
 		int passedCount = 0;
-		boolean normalComplete = false;
-		boolean adminComplete = false;
-
-		for (Iterator lessonIter = s.getCourse().getLessons(s, AbstractLesson.USER_ROLE).iterator(); lessonIter
-				.hasNext();)
+		for (Iterator lessonIter = s.getCourse().getLessons(s, role).iterator(); lessonIter.hasNext();)
 		{
 			lessonCount++;
 			Screen screen = (Screen) lessonIter.next();
-
 			LessonTracker lessonTracker = UserTracker.instance().getLessonTracker(s, user, screen);
 			if (lessonTracker.getCompleted())
 			{
 				passedCount++;
 			}
 		}
+		return new int[] { passedCount, lessonCount };
+	}
+
+	protected Element makeUserSummaryRow(WebSession s, String user)
+	{
+		TR tr = new TR();
+
+		tr.addElement(new TD().setAlign("LEFT").addElement(user));
+		boolean normalComplete = false;
+		boolean adminComplete = false;
+
+		// Count normal lessons using extracted helper
+		int[] normalCounts = countCompletedLessons(s, user, AbstractLesson.USER_ROLE);
+		int passedCount = normalCounts[0];
+		int lessonCount = normalCounts[1];
 		if (lessonCount == passedCount)
 		{
 			normalComplete = true;
@@ -266,20 +279,10 @@ public class SummaryReportCardScreen extends LessonAdapter
 		String text = Integer.toString(passedCount) + " of " + Integer.toString(lessonCount);
 		tr.addElement(new TD().setAlign("CENTER").addElement(text));
 
-		lessonCount = 0;
-		passedCount = 0;
-		for (Iterator lessonIter = s.getCourse().getLessons(s, AbstractLesson.HACKED_ADMIN_ROLE).iterator(); lessonIter
-				.hasNext();)
-		{
-			lessonCount++;
-			Screen screen = (Screen) lessonIter.next();
-
-			LessonTracker lessonTracker = UserTracker.instance().getLessonTracker(s, user, screen);
-			if (lessonTracker.getCompleted())
-			{
-				passedCount++;
-			}
-		}
+		// Count admin lessons using extracted helper
+		int[] adminCounts = countCompletedLessons(s, user, AbstractLesson.HACKED_ADMIN_ROLE);
+		passedCount = adminCounts[0];
+		lessonCount = adminCounts[1];
 		if (lessonCount == passedCount)
 		{
 			adminComplete = true;
