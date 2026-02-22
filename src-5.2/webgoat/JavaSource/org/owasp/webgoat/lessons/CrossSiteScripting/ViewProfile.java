@@ -190,9 +190,10 @@ public class ViewProfile extends DefaultLessonAction
 		{
 			userId = getIntSessionAttribute(s, getLessonName() + "." + CrossSiteScripting.USER_ID);
 		} catch (ParameterNotFoundException pnfe)
-		{
-		}
-		if (CrossSiteScripting.STAGE1.equals(stage))
+			{
+				System.out.println("Warning: user ID parameter not found in updateLessonStatus: " + pnfe.getMessage());
+			}
+			if (CrossSiteScripting.STAGE1.equals(stage))
 		{
 			String address1 = employee.getAddress1().toLowerCase();
 			if (userId != employee.getId() && address1.indexOf("<script>") > -1 && address1.indexOf("alert") > -1
