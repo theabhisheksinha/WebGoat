@@ -105,7 +105,7 @@ public class SameOriginPolicyProtection extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		int hiddenWGStatusInt = s.getParser().getIntParameter("hiddenWGStatus", 0);
