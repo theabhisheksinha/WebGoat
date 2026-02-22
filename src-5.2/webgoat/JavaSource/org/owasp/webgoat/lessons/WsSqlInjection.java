@@ -235,9 +235,11 @@ public class WsSqlInjection extends LessonAdapter
 				return results;
 			} catch (SQLException sqle)
 			{
+				System.out.println("Warning: SQL error in getResults(): " + sqle.getMessage());
 			}
 		} catch (Exception e)
 		{
+			System.out.println("Warning: error in getResults(): " + e.getMessage());
 		}
 		return null;
 	}
@@ -264,6 +266,7 @@ public class WsSqlInjection extends LessonAdapter
 				return users;
 			} catch (SQLException sqle)
 			{
+				System.out.println("Warning: SQL error in getCreditCard(): " + sqle.getMessage());
 			}
 		}
 		return null;
