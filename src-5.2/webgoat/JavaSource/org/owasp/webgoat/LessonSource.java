@@ -110,7 +110,7 @@ public class LessonSource extends HammerHead
 			}
 		} catch (Throwable t)
 		{
-			t.printStackTrace();
+			System.err.println("Error: " + t.getMessage()); // CAST fix: replaced printStackTrace()
 			log("ERROR: " + t);
 		} finally
 		{
@@ -119,7 +119,7 @@ public class LessonSource extends HammerHead
 				this.writeSource(source, response);
 			} catch (Throwable thr)
 			{
-				thr.printStackTrace();
+				System.err.println("Error: " + thr.getMessage()); // CAST fix: replaced printStackTrace()
 				log(request, "Could not write error screen: " + thr.getMessage());
 			}
 			// System.out.println( "Leaving doPost: " );
