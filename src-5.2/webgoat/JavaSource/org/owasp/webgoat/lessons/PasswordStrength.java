@@ -136,7 +136,7 @@ public class PasswordStrength extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		if (s.getParser().getStringParameter("pass1", "").equals("0")
