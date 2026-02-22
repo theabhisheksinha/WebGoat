@@ -68,7 +68,7 @@ public class ParameterParser
 	 */
 	private String clean(String s)
 	{
-		StringBuffer clean = new StringBuffer();
+		StringBuffer clean = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		for (int loop = 0; loop < s.length(); loop++)
 		{
@@ -864,7 +864,7 @@ public class ParameterParser
 		} catch (Exception e)
 		{
 			// System.out.println("Exception occured in defined pattern match");
-			// e.printStackTrace();
+			// System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			return def;
 		}
 	}
