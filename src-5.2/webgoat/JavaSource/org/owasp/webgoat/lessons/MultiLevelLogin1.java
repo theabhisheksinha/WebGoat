@@ -184,7 +184,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -444,7 +444,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		table.addElement(tr1);
 		table.addElement(tr2);
@@ -500,7 +500,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -513,7 +513,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 
@@ -537,7 +537,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -550,7 +550,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 
@@ -593,7 +593,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -606,7 +606,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 
@@ -637,7 +637,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -650,7 +650,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		return null;
@@ -691,7 +691,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}		finally
 		{
 			try
@@ -703,7 +703,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		return false;
@@ -739,7 +739,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -752,7 +752,7 @@ public class MultiLevelLogin1 extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 
