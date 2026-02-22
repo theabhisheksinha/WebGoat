@@ -68,14 +68,14 @@ public class UpdateProfile_i extends UpdateProfile
 				catch ( SQLException sqle )
 				{
 					s.setMessage( "Error updating employee profile" );
-					sqle.printStackTrace();
+					System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 				
 			}
 			catch ( Exception e )
 			{
 				s.setMessage( "Error updating employee profile" );
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}		
 		}
 		else
@@ -124,13 +124,13 @@ public class UpdateProfile_i extends UpdateProfile
 				catch ( SQLException sqle )
 				{
 					s.setMessage( "Error updating employee profile" );
-					sqle.printStackTrace();
+					System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 			catch ( Exception e )
 			{
 				s.setMessage( "Error updating employee profile" );
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}			
 		}
 		else
