@@ -109,7 +109,7 @@ public class HttpSplitting extends SequentialLessonAdapter
 
 					getLessonTracker(s).setStage(2);
 
-					StringBuffer msg = new StringBuffer();
+					StringBuffer msg = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 					msg.append("Good Job! ");
 					msg.append("This lesson has detected your successfull attack, ");
@@ -124,7 +124,7 @@ public class HttpSplitting extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return (ec);
 	}
