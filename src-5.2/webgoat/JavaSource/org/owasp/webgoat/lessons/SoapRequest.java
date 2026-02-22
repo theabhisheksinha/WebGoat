@@ -263,7 +263,7 @@ public class SoapRequest extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// DEVNOTE: Conditionally display Stage1 content depending on whether stage is completed or
@@ -317,7 +317,7 @@ public class SoapRequest extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// DEVNOTE: Conditionally display Stage2 content depending on whether stage is completed or
