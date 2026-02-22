@@ -252,6 +252,7 @@ public class Login extends DefaultLessonAction
 			}
 		} catch (ParameterNotFoundException pnfe)
 		{
+			System.out.println("Warning: parameter not found in updateLessonStatus: " + pnfe.getMessage());
 		}
 	}
 
