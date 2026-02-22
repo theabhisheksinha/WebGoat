@@ -87,7 +87,7 @@ public abstract class SequentialLessonAdapter extends LessonAdapter
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
 			//System.out.println(e);
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (new StringElement(""));
