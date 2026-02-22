@@ -96,7 +96,7 @@ public class SummaryReportCardScreen extends LessonAdapter
 			}
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		ec.addElement(new Center().addElement(makeSummary(s)));
@@ -277,7 +277,7 @@ public class SummaryReportCardScreen extends LessonAdapter
 			totalUsersNormalComplete++;
 		}
 		// Fix: Use StringBuilder to avoid indirect String concatenation inside loops (CAST / CWE-1050)
-		StringBuilder textBuilder = new StringBuilder();
+		StringBuilder textBuilder = new StringBuilder(64) // CAST fix: pre-sized buffer;
 		textBuilder.append(passedCount).append(" of ").append(lessonCount);
 		tr.addElement(new TD().setAlign("CENTER").addElement(textBuilder.toString()));
 
@@ -290,7 +290,7 @@ public class SummaryReportCardScreen extends LessonAdapter
 			adminComplete = true;
 			totalUsersAdminComplete++;
 		}
-		textBuilder = new StringBuilder();
+		textBuilder = new StringBuilder(64) // CAST fix: pre-sized buffer;
 		textBuilder.append(passedCount).append(" of ").append(lessonCount);
 		String text = textBuilder.toString();
 		tr.addElement(new TD().setAlign("CENTER").addElement(text));
