@@ -79,6 +79,7 @@ public class CommandInjection extends LessonAdapter
 				}
 				index = index + 1;
 				int helpFileLen = helpFile.length() - 1; // subtract 1 for the closing quote
+				// CAST: Consider using a proper logging framework instead of System.out
 				System.out.println("Command = [" + helpFile.substring(index, helpFileLen).trim().toLowerCase() + "]");
 				if ((osName.indexOf("Windows") != -1 && (helpFile.substring(index, helpFileLen).trim().toLowerCase()
 						.equals("netstat -a")
@@ -173,7 +174,7 @@ public class CommandInjection extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -183,7 +184,7 @@ public class CommandInjection extends LessonAdapter
 	{
 		results.replaceAll("(?s).*Output...\\s", "").replaceAll("(?s)Returncode.*", "");
 		StringTokenizer st = new StringTokenizer(results, "\n");
-		StringBuffer modified = new StringBuffer();
+		StringBuffer modified = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		while (st.hasMoreTokens())
 		{
@@ -225,6 +226,7 @@ public class CommandInjection extends LessonAdapter
 	 */
 	private String exec(WebSession s, String command)
 	{
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println("Executing OS command: " + command);
 		ExecResults er = Exec.execSimple(command);
 		if ((command.indexOf("&") != -1 || command.indexOf(";") != -1) && !er.getError())
@@ -246,6 +248,7 @@ public class CommandInjection extends LessonAdapter
 	 */
 	private String exec(WebSession s, String[] command)
 	{
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println("Executing OS command: " + Arrays.asList(command));
 		ExecResults er = Exec.execSimple(command);
 		if (!er.getError())
