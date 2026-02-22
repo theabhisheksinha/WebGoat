@@ -147,7 +147,7 @@ public class HttpOnly extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -193,7 +193,7 @@ public class HttpOnly extends LessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return value;
@@ -418,7 +418,7 @@ public class HttpOnly extends LessonAdapter
 
 	private String getJavaScript()
 	{
-		StringBuffer buffer = new StringBuffer();
+		StringBuffer buffer = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		buffer.append("<script language=\"javascript\">\n");
 		buffer.append("function myAlert() {\n");
