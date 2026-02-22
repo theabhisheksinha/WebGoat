@@ -374,7 +374,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 			defaced = (!origText.equals(defacedText));
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return defaced;
 		// <END_OMIT_SOURCE>
@@ -418,7 +418,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 			// BufferedReader( new FileReader( defacedpath ) ), false ) );
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -591,13 +591,15 @@ public class Challenge2Screen extends SequentialLessonAdapter
 			DatagramPacket dp = new DatagramPacket(message.getBytes(), message.length());
 			DatagramSocket sock = new DatagramSocket();
 			sock.connect(addr, 1234);
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("      Sending message to " + sock.getInetAddress());
 			sock.send(dp);
 			sock.close();
 		} catch (Exception e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Couldn't phone home");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -726,7 +728,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			//System.out.println("Couldn't write " + message + " to " + s);
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
