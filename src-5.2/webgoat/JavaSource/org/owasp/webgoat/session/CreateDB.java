@@ -59,6 +59,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping message database");
 		}
 
@@ -70,8 +71,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating message database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -95,6 +97,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping product database");
 		}
 
@@ -107,8 +110,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating product database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// Populate
@@ -144,6 +148,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping user admin database");
 		}
 
@@ -155,8 +160,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating user admin database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// Populate
@@ -192,6 +198,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping user database");
 		}
 
@@ -204,8 +211,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating user database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// Populate it
@@ -249,6 +257,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping user_login table");
 		}
 
@@ -260,8 +269,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating user database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 	}
@@ -286,6 +296,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping weather database");
 		}
 
@@ -298,8 +309,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating weather database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// Populate it
@@ -333,6 +345,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping user database");
 		}
 
@@ -345,8 +358,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating user database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// Populate it
@@ -375,6 +389,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error dropping tan database");
 		}
 
@@ -386,8 +401,9 @@ public class CreateDB
 			statement.executeUpdate(createTableStatement);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error creating tan database");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// Populate it
@@ -438,6 +454,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to drop employee table");
 		}
 
@@ -462,6 +479,7 @@ public class CreateDB
 			statement.executeUpdate(createTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to create employee table");
 		}
 
@@ -537,6 +555,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to drop roles");
 		}
 
@@ -548,6 +567,7 @@ public class CreateDB
 			statement.executeUpdate(createTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: Unable to create role table");
 		}
 
@@ -588,6 +608,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to drop auth");
 		}
 
@@ -599,6 +620,7 @@ public class CreateDB
 			statement.executeUpdate(createTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to create auth table");
 		}
 
@@ -695,6 +717,7 @@ public class CreateDB
 			statement.executeUpdate(dropTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to drop ownership");
 		}
 
@@ -706,6 +729,7 @@ public class CreateDB
 			statement.executeUpdate(createTable);
 		} catch (SQLException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error: unable to create ownership table");
 		}
 
@@ -836,6 +860,7 @@ public class CreateDB
 	 */
 	public void makeDB(Connection connection) throws SQLException
 	{
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println("Successful connection to database");
 		createUserDataTable(connection);
 		createLoginTable(connection);
@@ -849,6 +874,7 @@ public class CreateDB
 		createWeatherDataTable(connection);
 		createTanUserDataTable(connection);
 		createTanTable(connection);
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println("Success: creating tables.");
 	}
 }
