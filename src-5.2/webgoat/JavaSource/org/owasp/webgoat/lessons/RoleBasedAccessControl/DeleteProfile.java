@@ -147,8 +147,9 @@ public class DeleteProfile extends DefaultLessonAction
 			{
 				setStageComplete(s, RoleBasedAccessControl.STAGE1);
 			}
-		} catch (ParameterNotFoundException e)
+	} catch (ParameterNotFoundException e)
 		{
+			System.out.println("Warning: parameter not found in updateLessonStatus: " + e.getMessage());
 		}
 	}
 
