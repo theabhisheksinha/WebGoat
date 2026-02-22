@@ -164,6 +164,7 @@ public class Login extends DefaultLessonAction
 							if (rows > 0) setStageComplete(s, DBSQLInjection.STAGE2);
 						} catch (SQLException sqle2)
 						{
+							System.out.println("Warning: SQL error in login backup check: " + sqle2.getMessage());
 						}
 					}
 				}
