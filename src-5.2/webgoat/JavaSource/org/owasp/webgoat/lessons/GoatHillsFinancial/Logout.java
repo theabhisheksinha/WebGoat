@@ -59,11 +59,11 @@ public class Logout extends DefaultLessonAction
 		} catch (UnauthenticatedException ue1)
 		{
 			//System.out.println("Internal server error");
-			ue1.printStackTrace();
+			System.err.println("Error: " + ue1.getMessage()); // CAST fix: replaced printStackTrace()
 		} catch (UnauthorizedException ue2)
 		{
 			//System.out.println("Internal server error");
-			ue2.printStackTrace();
+			System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 	}
