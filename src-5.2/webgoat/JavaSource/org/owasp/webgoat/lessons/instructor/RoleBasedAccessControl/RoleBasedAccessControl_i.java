@@ -44,8 +44,8 @@ Solution Steps:
 
 Repeat stage 1 and note that the function fails with a "Not authorized" message.
  Tom will be in the list again, because the DB is reset when lesson restarts.
- Adding the access check in the RoleBasedAccessControl:handleRequest() is putting the check in the “Controller”
- The access check can also be added to DeleteProfile.deleteEmployeeProfile(), which is putting the check in the “Business Function”
+ Adding the access check in the RoleBasedAccessControl:handleRequest() is putting the check in the ï¿½Controllerï¿½
+ The access check can also be added to DeleteProfile.deleteEmployeeProfile(), which is putting the check in the ï¿½Business Functionï¿½
 */
 
 public class RoleBasedAccessControl_i extends RoleBasedAccessControl
@@ -110,20 +110,20 @@ public class RoleBasedAccessControl_i extends RoleBasedAccessControl
 		catch (ParameterNotFoundException pnfe)
 		{
 			//System.out.println("Missing parameter");
-			pnfe.printStackTrace();
+			System.err.println("Error: " + pnfe.getMessage()); // CAST fix: replaced printStackTrace()
 			setCurrentAction(s, ERROR_ACTION);												
 		}
 		catch (ValidationException ve)
 		{
 			//System.out.println("Validation failed");
-			ve.printStackTrace();
+			System.err.println("Error: " + ve.getMessage()); // CAST fix: replaced printStackTrace()
 			setCurrentAction(s, ERROR_ACTION);												
 		}
 		catch (UnauthenticatedException ue)
 		{
 			s.setMessage("Login failed");
 			//System.out.println("Authentication failure");
-			ue.printStackTrace();
+			System.err.println("Error: " + ue.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		catch (UnauthorizedException ue2)
 		{
@@ -140,7 +140,7 @@ public class RoleBasedAccessControl_i extends RoleBasedAccessControl
 				}
 				} catch (ParameterNotFoundException pnfe)
 				{
-				pnfe.printStackTrace();
+				System.err.println("Error: " + pnfe.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 			//System.out.println("isAuthorized() exit stage: " + getStage(s));
@@ -163,14 +163,14 @@ public class RoleBasedAccessControl_i extends RoleBasedAccessControl
 				} catch (Exception e)
 				{
 					// swallow this - shouldn't happen inthe normal course
-					// e.printStackTrace();
+					// System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 			
 		    s.setMessage("You are not authorized to perform this function");
 		    // System.out.println("Authorization failure");
 		    setCurrentAction(s, ERROR_ACTION);
-		    ue2.printStackTrace();
+		    System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		
 		// All this does for this lesson is ensure that a non-null content exists.
