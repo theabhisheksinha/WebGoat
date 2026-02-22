@@ -2,9 +2,9 @@
 package org.owasp.webgoat.lessons;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.ecs.Element;
@@ -79,15 +79,16 @@ public class BlindSqlInjection extends LessonAdapter
 			Element b = ECSFactory.makeButton("Go!");
 			ec.addElement(b);
 
-			String query = "SELECT * FROM user_data WHERE userid = " + accountNumber;
+			String query = "SELECT * FROM user_data WHERE userid = ?";
 			String answer_query;
-			answer_query = "SELECT TOP 1 first_name FROM user_data WHERE userid = " + TARGET_ACCT_NUM;
+			answer_query = "SELECT TOP 1 first_name FROM user_data WHERE userid = ?";
 
 			try
 			{
-				Statement answer_statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+				PreparedStatement answer_statement = connection.prepareStatement(answer_query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 																		ResultSet.CONCUR_READ_ONLY);
-				ResultSet answer_results = answer_statement.executeQuery(answer_query);
+				answer_statement.setInt(1, TARGET_ACCT_NUM);
+				ResultSet answer_results = answer_statement.executeQuery();
 				answer_results.first();
 				//System.out.println("Account: " + accountNumber);
 				//System.out.println("Answer : " + answer_results.getString(1));
@@ -98,9 +99,10 @@ public class BlindSqlInjection extends LessonAdapter
 				else
 				{
 
-					Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+					PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 																		ResultSet.CONCUR_READ_ONLY);
-					ResultSet results = statement.executeQuery(query);
+					statement.setString(1, accountNumber);
+					ResultSet results = statement.executeQuery();
 
 					if ((results != null) && (results.first() == true))
 					{

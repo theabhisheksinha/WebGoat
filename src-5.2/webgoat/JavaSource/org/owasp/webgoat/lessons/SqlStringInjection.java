@@ -90,14 +90,15 @@ public class SqlStringInjection extends SequentialLessonAdapter
 
 			ec.addElement(makeAccountLine(s));
 
-			String query = "SELECT * FROM user_data WHERE last_name = '" + accountName + "'";
+			String query = "SELECT * FROM user_data WHERE last_name = ?";
 			ec.addElement(new PRE(query));
 
 			try
 			{
-				Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+				PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 																	ResultSet.CONCUR_READ_ONLY);
-				ResultSet results = statement.executeQuery(query);
+				statement.setString(1, accountName);
+				ResultSet results = statement.executeQuery();
 
 				if ((results != null) && (results.first() == true))
 				{

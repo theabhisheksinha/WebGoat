@@ -1,9 +1,10 @@
 
 package org.owasp.webgoat.lessons.SQLInjection;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 import org.owasp.webgoat.lessons.GoatHillsFinancial.DefaultLessonAction;
@@ -122,13 +123,15 @@ public class Login extends DefaultLessonAction
 
 		try
 		{
-			String query = "SELECT * FROM employee WHERE userid = " + userId + " and password = '" + password + "'";
+			String query = "SELECT * FROM employee WHERE userid = ? and password = ?";
 			// System.out.println("Query:" + query);
 			try
 			{
-				Statement answer_statement = WebSession.getConnection(s)
-						.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-				ResultSet answer_results = answer_statement.executeQuery(query);
+				PreparedStatement answer_statement = WebSession.getConnection(s)
+						.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				answer_statement.setString(1, userId);
+				answer_statement.setString(2, password);
+				ResultSet answer_results = answer_statement.executeQuery();
 				if (answer_results.first())
 				{
 					setSessionAttribute(s, getLessonName() + ".isAuthenticated", Boolean.TRUE);
