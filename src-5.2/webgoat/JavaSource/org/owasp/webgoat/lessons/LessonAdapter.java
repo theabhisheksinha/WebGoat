@@ -90,7 +90,7 @@ public abstract class LessonAdapter extends AbstractLesson
 				ec.addElement(pre);
 			} catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		return (ec);
@@ -165,7 +165,7 @@ public abstract class LessonAdapter extends AbstractLesson
 	 */
 	public String getInstructions(WebSession s)
 	{
-		StringBuffer buff = new StringBuffer();
+		StringBuffer buff = new StringBuffer(64) // CAST fix: pre-sized buffer;
 		try
 		{
 			String fileName = s.getWebResource(getLessonPlanFileName());
