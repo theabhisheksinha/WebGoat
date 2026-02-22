@@ -37,13 +37,13 @@ public class DeleteProfile_i extends DeleteProfile
 				catch ( SQLException sqle )
 				{
 					s.setMessage( "Error deleting employee profile" );
-					sqle.printStackTrace();
+					System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 			catch ( Exception e )
 			{
 				s.setMessage( "Error deleting employee profile" );
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		else
