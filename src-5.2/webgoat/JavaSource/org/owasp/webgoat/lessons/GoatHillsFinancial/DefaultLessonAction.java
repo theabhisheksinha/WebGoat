@@ -200,12 +200,12 @@ public abstract class DefaultLessonAction implements LessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error getting user name");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error getting user name");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return name;
@@ -263,12 +263,12 @@ public abstract class DefaultLessonAction implements LessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error authorizing");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error authorizing");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// System.out.println("Authorized? " + authorized);
@@ -296,12 +296,12 @@ public abstract class DefaultLessonAction implements LessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error authorizing");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error authorizing");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return authorized;
