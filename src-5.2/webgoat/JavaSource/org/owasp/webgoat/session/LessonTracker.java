@@ -221,6 +221,7 @@ public class LessonTracker
 				in.close();
 			} catch (Exception e)
 			{
+				System.out.println("Warning: failed to close input stream for " + screen + ": " + e.getMessage());
 			}
 		}
 
@@ -360,6 +361,7 @@ public class LessonTracker
 				out.close();
 			} catch (Exception e)
 			{
+				System.out.println("Warning: failed to close output stream: " + e.getMessage());
 			}
 		}
 
