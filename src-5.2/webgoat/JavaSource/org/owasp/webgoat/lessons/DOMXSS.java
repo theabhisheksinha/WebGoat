@@ -288,7 +288,7 @@ public class DOMXSS extends SequentialLessonAdapter
 					is.close();
 				} catch (IOException ioe)
 				{
-
+					System.out.println("Warning: failed to close file reader: " + ioe.getMessage());
 				}
 			}
 		}
