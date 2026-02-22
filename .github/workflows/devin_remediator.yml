@@ -4,12 +4,20 @@ on:
     types: [labeled]
 
 jobs:
-  dispatch_to_devin:
+  run-dispatcher:
     if: github.event.label.name == 'devin-fix'
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Devin API
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install requests
+      - name: Dispatch to Devin
         env:
+          # This maps your GitHub Secrets and Event Data to the Script
           DEVIN_SERVICE_USER_TOKEN: ${{ secrets.DEVIN_TOKEN }}
           DEVIN_ORG_ID: ${{ secrets.DEVIN_ORG_ID }}
           ISSUE_BODY: ${{ github.event.issue.body }}
