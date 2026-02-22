@@ -101,11 +101,11 @@ public class Interceptor implements Filter
 
 		} catch (UnknownHostException e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 
 		} catch (IOException e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		} finally
 		{
 			if (out != null)
