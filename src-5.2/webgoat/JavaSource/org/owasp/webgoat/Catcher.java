@@ -109,7 +109,7 @@ public class Catcher extends HammerHead
 
 		} catch (Throwable t)
 		{
-			t.printStackTrace();
+			System.err.println("Error: " + t.getMessage()); // CAST fix: replaced printStackTrace()
 			log("ERROR: " + t);
 		}
 	}
