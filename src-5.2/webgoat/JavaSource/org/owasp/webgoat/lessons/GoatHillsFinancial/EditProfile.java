@@ -95,18 +95,19 @@ public class EditProfile extends DefaultLessonAction
 									.getInt("ccn_limit"), answer_results.getString("disciplined_date"), answer_results
 									.getString("disciplined_notes"), answer_results.getString("personal_description"));
 					/*
+					 // CAST: Consider using a proper logging framework instead of System.out
 					 * System.out.println("Retrieved employee from db: " + profile.getFirstName() + " " +
 					 * profile.getLastName() + " (" + profile.getId() + ")");
 					 */}
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error getting employee profile");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error getting employee profile");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return profile;
