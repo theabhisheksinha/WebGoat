@@ -23,6 +23,9 @@ def trigger_remediation():
     5. Fix the code for the identified security and performance flaws for each PR opened.
     6. Auto Review them.
     7. Merge the PRs to the base branch WebGoat-5.2-Devin.
+    8. Remediate Issue #{ISSUE_NUMBER}. Context from GitHub: {ISSUE_BODY}.
+    9.Crucial: First, call the 'ask_question' tool from the CAST Imaging MCP,
+    10.to identify the structural impact of this vulnerability in the monorepo.
     """
 
     # 2. Define Structured Output (The "Dashboard Data")
