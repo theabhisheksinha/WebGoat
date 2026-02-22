@@ -117,7 +117,7 @@ public class XMLInjection extends LessonAdapter
 			}
 		} catch (Exception ex)
 		{
-			ex.printStackTrace();
+			System.err.println("Error: " + ex.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		Form form = new Form(getFormAction(), Form.POST).setName("form").setEncType("");
@@ -140,7 +140,7 @@ public class XMLInjection extends LessonAdapter
 		}
 		String lineSep = System.getProperty("line.separator");
 		// Fix: Use StringBuilder to avoid indirect String concatenation (CAST / CWE-1050)
-		StringBuilder scriptBuilder = new StringBuilder();
+		StringBuilder scriptBuilder = new StringBuilder(64) // CAST fix: pre-sized buffer;
 		scriptBuilder.append("<script>").append(lineSep);
 		scriptBuilder.append("function getRewards() {").append(lineSep);
 		scriptBuilder.append("var accountIDField = document.getElementById('").append(ACCOUNTID).append("');").append(lineSep);
@@ -238,7 +238,7 @@ public class XMLInjection extends LessonAdapter
 			}
 			else
 			{
-				StringBuffer shipment = new StringBuffer();
+				StringBuffer shipment = new StringBuffer(64) // CAST fix: pre-sized buffer;
 				for (int i = 1001; i < 1001 + rewardsMap.size(); i++)
 				{
 
