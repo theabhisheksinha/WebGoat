@@ -115,7 +115,7 @@ public class StoredXss extends LessonAdapter
 			{
 				s.setMessage("Could not add message to database");
 			}
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -257,7 +257,7 @@ public class StoredXss extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
