@@ -2,59 +2,66 @@ import os
 import requests
 import json
 
-# Configuration from Environment Variables (Safe for GitHub Actions)
+# Configuration from Environment Variables (GitHub Context)
 DEVIN_TOKEN = os.getenv("DEVIN_SERVICE_USER_TOKEN")
 ORG_ID = os.getenv("DEVIN_ORG_ID")
-GITHUB_ISSUE_BODY = os.getenv("ISSUE_BODY")
-GITHUB_ISSUE_NUMBER = os.getenv("ISSUE_NUMBER")
+PR_NUMBER = os.getenv("PR_NUMBER")
+PR_BODY = os.getenv("PR_BODY")
+PR_TITLE = os.getenv("PR_TITLE")
 BASE_URL = "https://api.devin.ai/v3beta1"
 
 def trigger_remediation():
-    # 1. Define the Prompt (Grounded in CAST MCP)
+    # 1. Define the Prompt (ISO-5055 + CAST MCP Instructions)
     prompt = f"""
-    REMEDIATION TASK: Issue #{GITHUB_ISSUE_NUMBER}
-    CONTEXT: {GITHUB_ISSUE_BODY}
+    PR REMEDIATION & MERGE TASK: PR #{PR_NUMBER} - {PR_TITLE}
+    
+    GOAL: Perform autonomous ISO-5055 remediation on the 'WebGoat_5.2_Devin' branch.
     
     INSTRUCTIONS:
-    1. Use the cast-imaging-express MCP server to map the dependencies of the files mentioned.
-    2. identify the ISO-5055 security flaws.
-    3. identify the ISO-5055 performance flaws.
-    4. Open a separate PR to the base branch.
-    5. Fix the code for the identified security and performance flaws for each PR opened.
-    6. Auto Review them.
-    7. Merge the PRs to the base branch WebGoat-5.2-Devin.
-    8. Remediate Issue #{ISSUE_NUMBER}. Context from GitHub: {ISSUE_BODY}.
-    9.Crucial: First, call the 'ask_question' tool from the CAST Imaging MCP,
-    10.to identify the structural impact of this vulnerability in the monorepo.
+    1. Connect to the 'cast-imaging-express' MCP server to identify specific structural issues.
+    2. Identify all ISO-5055 Security flaws (e.g., SQL Injection, XSS) and ISO-5055 Performance flaws.
+    3. Create a new branch for the fix. 
+    4. Implement the remediations for the identified security and performance flaws.
+    5. Open a new Pull Request targeting the base branch 'WebGoat_5.2_Devin'.
+    6. Use the 'Devin Review' tool to perform an auto-review of your own changes, checking for regressions and ensuring high fix-confidence.
+    7. Once the auto-review is successful and the test suite passes, merge the fixes into the 'WebGoat_5.2_Devin' base branch.
     """
 
-    # 2. Define Structured Output (The "Dashboard Data")
+    # 2. Define Structured Output (For your VP Dashboard visibility)
     schema = {
         "type": "object",
         "properties": {
-            "vulnerability_type": {"type": "string"},
+            "vulnerability_type": {"type": "string", "description": "ISO-5055 Category found (Security/Performance)"},
             "cast_dependencies_checked": {"type": "integer"},
-            "fix_confidence_score": {"type": "number"},
+            "remediation_status": {"enum": ["analyzing", "reproducing", "fixing", "merged", "failed"]},
             "pr_url": {"type": "string"}
         },
-        "required": ["vulnerability_type", "fix_confidence_score"]
+        "required": ["vulnerability_type", "remediation_status"]
     }
 
     # 3. Call Devin API v3
-    headers = {"Authorization": f"Bearer {DEVIN_TOKEN}", "Content-Type": "application/json"}
+    headers = {
+        "Authorization": f"Bearer {DEVIN_TOKEN}", 
+        "Content-Type": "application/json"
+    }
+    
     payload = {
         "prompt": prompt,
         "structured_output_schema": schema,
-        "idempotent": True # Prevents duplicate sessions for the same issue
+        "idempotent": True # Ensures we don't start duplicate sessions if you rename the PR multiple times
     }
 
-    response = requests.post(f"{BASE_URL}/organizations/{ORG_ID}/sessions", json=payload, headers=headers)
+    response = requests.post(
+        f"{BASE_URL}/organizations/{ORG_ID}/sessions", 
+        json=payload, 
+        headers=headers
+    )
     
     if response.status_code == 200:
         session_info = response.json()
         print(f"Devin Session Started: {session_info['url']}")
     else:
-        print(f"Error: {response.text}")
+        print(f"Error {response.status_code}: {response.text}")
 
 if __name__ == "__main__":
     trigger_remediation()
