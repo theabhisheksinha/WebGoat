@@ -113,7 +113,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -272,7 +272,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -285,7 +285,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 
@@ -338,7 +338,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 
 		catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		table.addElement(tr1);
 		table.addElement(tr2);
@@ -462,7 +462,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		finally
 		{
@@ -475,7 +475,7 @@ public class InsecureLogin extends SequentialLessonAdapter
 			}
 			catch (Exception e)
 			{
-				e.printStackTrace();
+				System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		return null;
