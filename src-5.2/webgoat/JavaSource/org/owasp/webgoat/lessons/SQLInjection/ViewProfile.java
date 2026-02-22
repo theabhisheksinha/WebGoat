@@ -214,6 +214,7 @@ public class ViewProfile extends DefaultLessonAction
 						targetEmployee = getEmployeeProfile_BACKUP(s, userId, employeeId);
 					} catch (UnauthorizedException e)
 					{
+						System.out.println("Warning: unauthorized access in profile backup check: " + e.getMessage());
 					}
 					if (targetEmployee != null && targetEmployee.getId() == SQLInjection.PRIZE_EMPLOYEE_ID)
 					{
@@ -223,6 +224,7 @@ public class ViewProfile extends DefaultLessonAction
 			}
 		} catch (ParameterNotFoundException pnfe)
 		{
+			System.out.println("Warning: parameter not found in updateLessonStatus: " + pnfe.getMessage());
 		}
 	}
 
