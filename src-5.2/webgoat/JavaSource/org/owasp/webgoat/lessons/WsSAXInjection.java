@@ -146,7 +146,7 @@ public class WsSAXInjection extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return (ec);
 	}
@@ -189,7 +189,7 @@ public class WsSAXInjection extends LessonAdapter
 
 		private String password = null;
 
-		private StringBuffer text = new StringBuffer();
+		private StringBuffer text = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException
 		{
