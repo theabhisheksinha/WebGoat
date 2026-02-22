@@ -19,6 +19,7 @@ import org.apache.ecs.html.TD;
 import org.apache.ecs.html.TR;
 import org.apache.ecs.html.Table;
 import org.owasp.webgoat.session.WebSession;
+import org.owasp.webgoat.util.HtmlEncoder;
 
 
 /***************************************************************************************************
@@ -80,7 +81,8 @@ public class SilentTransactions extends LessonAdapter
 					if (!amount.equals(""))
 					{
 						result.append("You have just silently authorized ");
-						result.append(amount);
+						// Fix: HTML-encode user input to prevent reflected XSS (CAST #8408 / CWE-79)
+						result.append(HtmlEncoder.encode(amount));
 						result.append("$ without the user interaction.<br>");
 					}
 					result

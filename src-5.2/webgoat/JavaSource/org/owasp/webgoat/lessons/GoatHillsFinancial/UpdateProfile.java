@@ -180,26 +180,28 @@ public class UpdateProfile extends DefaultLessonAction
 		try
 		{
 			int nextId = getNextUID(s);
-			String query = "INSERT INTO employee VALUES ( " + nextId + ", ?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			// Fix: Parameterize nextId to prevent SQL injection (CAST #8420 / CWE-89)
+			String query = "INSERT INTO employee VALUES ( ?, ?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 			try
 			{
 				PreparedStatement ps = WebSession.getConnection(s).prepareStatement(query);
 
-				ps.setString(1, employee.getFirstName().toLowerCase());
-				ps.setString(2, employee.getLastName());
-				ps.setString(3, employee.getSsn());
-				ps.setString(4, employee.getTitle());
-				ps.setString(5, employee.getPhoneNumber());
-				ps.setString(6, employee.getAddress1());
-				ps.setString(7, employee.getAddress2());
-				ps.setInt(8, employee.getManager());
-				ps.setString(9, employee.getStartDate());
-				ps.setString(10, employee.getCcn());
-				ps.setInt(11, employee.getCcnLimit());
-				ps.setString(12, employee.getDisciplinaryActionDate());
-				ps.setString(13, employee.getDisciplinaryActionNotes());
-				ps.setString(14, employee.getPersonalDescription());
+				ps.setInt(1, nextId);
+				ps.setString(2, employee.getFirstName().toLowerCase());
+				ps.setString(3, employee.getLastName());
+				ps.setString(4, employee.getSsn());
+				ps.setString(5, employee.getTitle());
+				ps.setString(6, employee.getPhoneNumber());
+				ps.setString(7, employee.getAddress1());
+				ps.setString(8, employee.getAddress2());
+				ps.setInt(9, employee.getManager());
+				ps.setString(10, employee.getStartDate());
+				ps.setString(11, employee.getCcn());
+				ps.setInt(12, employee.getCcnLimit());
+				ps.setString(13, employee.getDisciplinaryActionDate());
+				ps.setString(14, employee.getDisciplinaryActionNotes());
+				ps.setString(15, employee.getPersonalDescription());
 
 				ps.execute();
 			} catch (SQLException sqle)

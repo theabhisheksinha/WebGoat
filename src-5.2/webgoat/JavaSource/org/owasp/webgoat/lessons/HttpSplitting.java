@@ -11,6 +11,7 @@ import org.apache.ecs.*;
 import org.apache.ecs.html.*;
 import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
+import org.owasp.webgoat.util.HtmlEncoder;
 
 
 /***************************************************************************************************
@@ -160,8 +161,8 @@ public class HttpSplitting extends SequentialLessonAdapter
 
 		lang = URLDecoder.decode(s.getParser().getRawParameter(LANGUAGE, ""), "UTF-8");
 
-		// add the search by field
-		Input input = new Input(Input.TEXT, LANGUAGE, lang.toString());
+		// Fix: HTML-encode user input to prevent reflected XSS (CAST #8408 / CWE-79)
+		Input input = new Input(Input.TEXT, LANGUAGE, HtmlEncoder.encode(lang.toString()));
 		ec.addElement(input);
 
 		Element b = ECSFactory.makeButton("Search!");
