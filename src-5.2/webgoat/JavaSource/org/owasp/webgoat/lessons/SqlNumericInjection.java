@@ -96,14 +96,7 @@ public class SqlNumericInjection extends SequentialLessonAdapter
 
 			station = s.getParser().getRawParameter(STATION_ID, null);
 
-			if (station == null)
-			{
-				query = "SELECT * FROM weather_data WHERE station = [station]";
-			}
-			else
-			{
-				query = "SELECT * FROM weather_data WHERE station = " + station;
-			}
+			query = "SELECT * FROM weather_data WHERE station = ?";
 
 			ec.addElement(new PRE(query));
 
@@ -113,9 +106,10 @@ public class SqlNumericInjection extends SequentialLessonAdapter
 
 			try
 			{
-				Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
+				PreparedStatement statement = connection.prepareStatement(query, ResultSet.TYPE_SCROLL_INSENSITIVE,
 																	ResultSet.CONCUR_READ_ONLY);
-				ResultSet results = statement.executeQuery(query);
+				statement.setInt(1, Integer.parseInt(station));
+				ResultSet results = statement.executeQuery();
 
 				if ((results != null) && (results.first() == true))
 				{
