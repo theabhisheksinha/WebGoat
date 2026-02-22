@@ -212,8 +212,9 @@ public class LessonTracker
 			// Normal if the lesson has not been accessed yet.
 		} catch (Exception e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Failed to load lesson state for " + screen);
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		} finally
 		{
 			try
@@ -221,6 +222,7 @@ public class LessonTracker
 				in.close();
 			} catch (Exception e)
 			{
+				// CAST: Consider using a proper logging framework instead of System.out
 				System.out.println("Warning: failed to close input stream for " + screen + ": " + e.getMessage());
 			}
 		}
@@ -353,6 +355,7 @@ public class LessonTracker
 		} catch (Exception e)
 		{
 			// what do we want to do, I think nothing.
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Warning User data for " + s.getUserName() + " will not persist");
 		} finally
 		{
@@ -361,6 +364,7 @@ public class LessonTracker
 				out.close();
 			} catch (Exception e)
 			{
+				// CAST: Consider using a proper logging framework instead of System.out
 				System.out.println("Warning: failed to close output stream: " + e.getMessage());
 			}
 		}
@@ -374,7 +378,7 @@ public class LessonTracker
 	 */
 	public String toString()
 	{
-		StringBuffer buff = new StringBuffer();
+		StringBuffer buff = new StringBuffer(64) // CAST fix: pre-sized buffer;
 		buff.append("LessonTracker:" + "\n");
 		buff.append("    - completed:.......... " + completed + "\n");
 		buff.append("    - maxHintLevel:....... " + maxHintLevel + "\n");
