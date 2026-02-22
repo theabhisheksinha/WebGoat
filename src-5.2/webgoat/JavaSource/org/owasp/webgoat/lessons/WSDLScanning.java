@@ -226,7 +226,7 @@ public class WSDLScanning extends LessonAdapter
 			ec.addElement(new P().addElement(t));
 		} catch (Exception e)
 		{
-
+			System.out.println("Warning: error processing fields: " + e.getMessage());
 		}
 		try
 		{
@@ -270,9 +270,11 @@ public class WSDLScanning extends LessonAdapter
 				if ((results != null) && (results.next() == true)) { return results.getString(field); }
 			} catch (SQLException sqle)
 			{
+				System.out.println("Warning: SQL error in getResults(): " + sqle.getMessage());
 			}
 		} catch (Exception e)
 		{
+			System.out.println("Warning: error in getResults(): " + e.getMessage());
 		}
 		return null;
 	}
