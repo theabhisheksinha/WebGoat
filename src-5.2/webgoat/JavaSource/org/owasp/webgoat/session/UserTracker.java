@@ -128,6 +128,7 @@ public class UserTracker
 				usersDB.close();
 			} catch (Exception e)
 			{
+				System.out.println("Warning: failed to retrieve users for role '" + roleName + "': " + e.getMessage());
 			}
 			return allUsers;
 		}
@@ -155,6 +156,7 @@ public class UserTracker
 
 			} catch (Exception e)
 			{
+				System.out.println("Warning: failed to delete user '" + user + "': " + e.getMessage());
 			}
 		}
 	}
