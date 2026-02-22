@@ -90,7 +90,7 @@ public class RefreshDBScreen extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -147,11 +147,12 @@ public class RefreshDBScreen extends LessonAdapter
 
 			CreateDB db = new CreateDB();
 			db.makeDB(connection);
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Successfully refreshed the database.");
 		} catch (Exception e)
 		{
 			s.setMessage("Error refreshing database " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 }
