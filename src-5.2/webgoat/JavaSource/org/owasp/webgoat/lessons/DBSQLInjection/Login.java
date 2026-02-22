@@ -83,11 +83,11 @@ public class Login extends DefaultLessonAction
 				} catch (UnauthenticatedException ue1)
 				{
 					//System.out.println("Internal server error");
-					ue1.printStackTrace();
+					System.err.println("Error: " + ue1.getMessage()); // CAST fix: replaced printStackTrace()
 				} catch (UnauthorizedException ue2)
 				{
 					//System.out.println("Internal server error");
-					ue2.printStackTrace();
+					System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 			else
@@ -170,12 +170,12 @@ public class Login extends DefaultLessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error logging in: " + sqle.getLocalizedMessage());
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error logging in: " + e.getLocalizedMessage());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		// System.out.println("Lesson login result: " + authenticated);
@@ -212,12 +212,12 @@ public class Login extends DefaultLessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error getting employees");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error getting employees");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return employees;
