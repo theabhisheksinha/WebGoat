@@ -289,7 +289,7 @@ public class Encoding extends LessonAdapter
 
 			s.setMessage("Error generating " + this.getClass().getName());
 
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 
 		}
 
@@ -466,7 +466,7 @@ public class Encoding extends LessonAdapter
 		} catch (NoSuchAlgorithmException e)
 		{
 			// it's got to be there
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return (base64Encode(md.digest()));
 	}
@@ -490,7 +490,7 @@ public class Encoding extends LessonAdapter
 		} catch (NoSuchAlgorithmException e)
 		{
 			// it's got to be there
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return (base64Encode(md.digest()));
 	}
@@ -559,34 +559,59 @@ public class Encoding extends LessonAdapter
 		{
 			String userInput = args[0];
 			String userKey = args[1];
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Working with: " + userInput);
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Base64 encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(base64Encode(userInput) + " : " + base64Decode(userInput));
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Entity encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(HtmlEncoder.encode(userInput) + " : " + HtmlEncoder.decode(userInput));
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Password based encryption (PBE): ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(encryptString(userInput, userKey) + " : " + decryptString(userInput, userKey));
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("MD5 hash: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(hashMD5(userInput) + " : " + "Cannot reverse a hash");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("SHA-256 hash: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(hashSHA(userInput) + " : " + "Cannot reverse a hash");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Unicode encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Not Implemented" + " : " + "Not Implemented");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("URL encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(urlEncode(userInput) + " : " + urlDecode(userInput));
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Hex encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(hexEncode(userInput) + " : " + hexDecode(userInput));
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Rot13 encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(rot13(userInput) + " : " + userInput);
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("XOR with password: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(xorEncode(userInput, userKey) + " : " + xorDecode(userInput, userKey));
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Double unicode encoding is...");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Not Implemented" + " : " + "Not Implemented");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.print("Double URL encoding: ");
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(urlEncode(urlEncode(userInput)) + " : " + urlDecode(urlDecode(userInput)));
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
