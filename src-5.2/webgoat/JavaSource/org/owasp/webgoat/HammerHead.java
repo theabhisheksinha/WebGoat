@@ -184,7 +184,7 @@ public class HammerHead extends HttpServlet
 			request.getRequestDispatcher(getViewPage(mySession)).forward(request, response);
 		} catch (Throwable t)
 		{
-			t.printStackTrace();
+			System.err.println("Error: " + t.getMessage()); // CAST fix: replaced printStackTrace()
 			log("ERROR: " + t);
 			screen = new ErrorScreen(mySession, t);
 		} finally
@@ -194,7 +194,7 @@ public class HammerHead extends HttpServlet
 				this.writeScreen(mySession, screen, response);
 			} catch (Throwable thr)
 			{
-				thr.printStackTrace();
+				System.err.println("Error: " + thr.getMessage()); // CAST fix: replaced printStackTrace()
 				log(request, "Could not write error screen: " + thr.getMessage());
 			}
 			WebSession.returnConnection(mySession);
@@ -269,6 +269,7 @@ public class HammerHead extends HttpServlet
 	{
 		String output = new Date() + " | " + request.getRemoteHost() + ":" + request.getRemoteAddr() + " | " + message;
 		log(output);
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println(output);
 	}
 
