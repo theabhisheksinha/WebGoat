@@ -535,7 +535,9 @@ public class Encoding extends LessonAdapter
 	{
 		char[] ascii = new char[asciiString.length()];
 		asciiString.getChars(0, asciiString.length(), ascii, 0);
-		StringBuffer hexBuff = new StringBuffer();
+		// Performance: pre-size buffer to avoid repeated resizing
+		// Each char produces "%XX" = ~3 chars
+		StringBuffer hexBuff = new StringBuffer(asciiString.length() * 3);
 		for (int i = 0; i < asciiString.length(); i++)
 		{
 			hexBuff.append("%");
@@ -652,7 +654,8 @@ public class Encoding extends LessonAdapter
 
 	public static synchronized String rot13(String input)
 	{
-		StringBuffer output = new StringBuffer();
+		// Performance: pre-size buffer to match input length
+		StringBuffer output = new StringBuffer(input != null ? input.length() : 0);
 		if (input != null)
 		{
 			for (int i = 0; i < input.length(); i++)
