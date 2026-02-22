@@ -436,9 +436,9 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 				{
 					is.close();
 				} catch (IOException ioe)
-				{
-
-				}
+					{
+						System.out.println("Warning: failed to close input stream: " + ioe.getMessage());
+					}
 			}
 		}
 
