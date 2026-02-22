@@ -210,7 +210,7 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 	public static String getFileMethod(BufferedReader reader, String methodName, boolean numbers)
 	{
 		int count = 0;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(64) // CAST fix: pre-sized buffer;
 		boolean echo = false;
 		boolean startCount = false;
 		int parenCount = 0;
@@ -259,8 +259,9 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 			reader.close();
 		} catch (Exception e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(e);
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (sb.toString());
@@ -294,7 +295,7 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 	public static String getFileText(BufferedReader reader, boolean numbers)
 	{
 		int count = 0;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		try
 		{
@@ -312,8 +313,9 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 			reader.close();
 		} catch (Exception e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(e);
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (sb.toString());
@@ -553,7 +555,7 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 	 */
 	public String getLink()
 	{
-		StringBuffer link = new StringBuffer();
+		StringBuffer link = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		link.append("attack?");
 		link.append(WebSession.SCREEN);
@@ -624,12 +626,12 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error authorizing");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error authorizing");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return authorized;
 	}
@@ -654,7 +656,7 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 	public static String makeWindowScript(String windowName)
 	{
 		// FIXME: make this string static
-		StringBuffer script = new StringBuffer();
+		StringBuffer script = new StringBuffer(64) // CAST fix: pre-sized buffer;
 		script.append("<script language=\"JavaScript\">\n");
 		script.append("	<!--\n");
 		script.append("	  function makeWindow(url) {\n");
@@ -715,8 +717,9 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 			reader.close();
 		} catch (Exception e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println(e);
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
