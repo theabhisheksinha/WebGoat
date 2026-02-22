@@ -42,6 +42,30 @@ public class Exec
 {
 
 	/**
+	 * Validates a command string for potentially dangerous characters
+	 * that could be used for command injection (CWE-78).
+	 * Logs a warning if suspicious characters are detected.
+	 *
+	 * @param command the command string to validate
+	 */
+	private static void validateCommand(String command)
+	{
+		if (command != null)
+		{
+			// Check for common command injection characters
+			String[] dangerousChars = {";", "&&", "||", "|", "`", "$(", ">", "<", "\n", "\r"};
+			for (String dangerous : dangerousChars)
+			{
+				if (command.contains(dangerous))
+				{
+					System.out.println("WARNING: Potential command injection detected in command: " + command);
+					break;
+				}
+			}
+		}
+	}
+
+	/**
 	 * Description of the Method
 	 * 
 	 * @param command
@@ -102,6 +126,12 @@ public class Exec
 
 		try
 		{
+			// Validate command for potential injection (CWE-78)
+			for (String cmd : command)
+			{
+				validateCommand(cmd);
+			}
+
 			// start the command
 			child = Runtime.getRuntime().exec(command);
 
@@ -284,6 +314,9 @@ public class Exec
 
 		try
 		{
+			// Validate command for potential injection (CWE-78)
+			validateCommand(command);
+
 			// start the command
 			child = Runtime.getRuntime().exec(command);
 
