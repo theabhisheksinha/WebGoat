@@ -860,6 +860,7 @@ public class WebSession
 			}
 		} catch (Exception e)
 		{
+			System.out.println("Warning: session update error: " + e.getMessage());
 		}
 
 		// clear variables when switching screens
@@ -891,6 +892,7 @@ public class WebSession
 					if (stage >= 0 && stage < stages.length) rla.setStage(this, stages[stage]);
 				} catch (ParameterNotFoundException pnfe)
 				{
+					System.out.println("Warning: stage parameter not found: " + pnfe.getMessage());
 				}
 			}
 		}
