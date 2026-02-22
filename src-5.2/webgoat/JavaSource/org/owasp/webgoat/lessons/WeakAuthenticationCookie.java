@@ -186,7 +186,7 @@ public class WeakAuthenticationCookie extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (makeLogin(s));
@@ -202,7 +202,7 @@ public class WeakAuthenticationCookie extends LessonAdapter
 	private String encode(String value)
 	{
 		// <START_OMIT_SOURCE>
-		StringBuffer encoded = new StringBuffer();
+		StringBuffer encoded = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		for (int i = 0; i < value.length(); i++)
 		{
