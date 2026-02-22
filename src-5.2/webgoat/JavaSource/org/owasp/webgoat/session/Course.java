@@ -66,8 +66,9 @@ public class Course
 			properties = new WebgoatProperties(PROPERTIES_FILENAME);
 		} catch (IOException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error loading WebGoat properties");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -106,7 +107,7 @@ public class Course
 	 */
 	private static String getSourceFile(String className)
 	{
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		sb.append(className.replace(".", "/"));
 		sb.append(".java");
