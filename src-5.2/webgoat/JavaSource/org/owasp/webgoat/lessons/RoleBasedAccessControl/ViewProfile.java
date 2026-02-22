@@ -91,6 +91,7 @@ public class ViewProfile extends DefaultLessonAction
 			}
 		} catch (ParameterNotFoundException e)
 		{
+			System.out.println("Warning: parameter not found in updateLessonStatus: " + e.getMessage());
 		}
 	}
 
