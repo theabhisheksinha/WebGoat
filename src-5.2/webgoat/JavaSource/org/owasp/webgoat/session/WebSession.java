@@ -658,6 +658,7 @@ public class WebSession
 
 	public void openLessonSession(AbstractLesson lesson)
 	{
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println("Opening new lesson session for lesson " + lesson);
 		LessonSession lessonSession = new LessonSession();
 		lessonSessions.put(lesson, lessonSession);
@@ -820,6 +821,7 @@ public class WebSession
 		// FIXME: doesn't work right -- no reauthentication
 		if (myParser.getRawParameter(LOGOUT, null) != null)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Logout " + request.getUserPrincipal());
 			eatCookies();
 			request.getSession().invalidate();
@@ -947,6 +949,7 @@ public class WebSession
 		isHackedAdmin = myParser.getBooleanParameter(ADMIN, isAdmin);
 		if (isHackedAdmin)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Hacked admin");
 			hasHackedHackableAdmin = true;
 		}
@@ -972,6 +975,7 @@ public class WebSession
 	private void restartLesson(int lessonId)
 	{
 		AbstractLesson al = getLesson(lessonId);
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println("Restarting lesson: " + al);
 		al.getLessonTracker(this).setCompleted(false);
 		if (al instanceof SequentialLessonAdapter)
