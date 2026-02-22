@@ -70,11 +70,11 @@ public class FindProfile extends DefaultLessonAction
 				} catch (UnauthenticatedException ue1)
 				{
 					//System.out.println("Internal server error");
-					ue1.printStackTrace();
+					System.err.println("Error: " + ue1.getMessage()); // CAST fix: replaced printStackTrace()
 				} catch (UnauthorizedException ue2)
 				{
 					//System.out.println("Internal server error");
-					ue2.printStackTrace();
+					System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 				}
 			}
 		}
@@ -139,6 +139,7 @@ public class FindProfile extends DefaultLessonAction
 									.getString("disciplined_notes"), answer_results.getString("personal_description"));
 
 					/*
+					 // CAST: Consider using a proper logging framework instead of System.out
 					 * System.out.println("Retrieved employee from db: " + profile.getFirstName() + " " +
 					 * profile.getLastName() + " (" + profile.getId() + ")");
 					 */
@@ -147,12 +148,12 @@ public class FindProfile extends DefaultLessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error finding employee profile");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error finding employee profile");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return profile;
