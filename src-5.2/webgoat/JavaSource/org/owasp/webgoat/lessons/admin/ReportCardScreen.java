@@ -174,10 +174,15 @@ public class ReportCardScreen extends LessonAdapter
 		{
 			tr.setBgColor(HtmlColor.YELLOW);
 		}
-		tr.addElement(new TD().addElement(screen.getTitle()));
-		tr.addElement(new TD().setAlign("CENTER").addElement(lessonTracker.getCompleted() ? "Y" : "N"));
-		tr.addElement(new TD().setAlign("CENTER").addElement(Integer.toString(lessonTracker.getNumVisits())));
-		tr.addElement(new TD().setAlign("CENTER").addElement(Integer.toString(lessonTracker.getMaxHintLevel())));
+		// Fix: Cache values to avoid indirect String concatenation inside loops (CAST / CWE-1050)
+		String title = screen.getTitle();
+		String completed = lessonTracker.getCompleted() ? "Y" : "N";
+		String numVisits = Integer.toString(lessonTracker.getNumVisits());
+		String maxHintLevel = Integer.toString(lessonTracker.getMaxHintLevel());
+		tr.addElement(new TD().addElement(title));
+		tr.addElement(new TD().setAlign("CENTER").addElement(completed));
+		tr.addElement(new TD().setAlign("CENTER").addElement(numVisits));
+		tr.addElement(new TD().setAlign("CENTER").addElement(maxHintLevel));
 		return tr;
 	}
 

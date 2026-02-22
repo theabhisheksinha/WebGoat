@@ -110,10 +110,10 @@ public class SummaryReportCardScreen extends LessonAdapter
 		}
 		t.addElement(makeUserSummaryHeader());
 
-		for (Iterator<String> userIter = UserTracker.instance().getAllUsers(WebSession.WEBGOAT_USER).iterator(); userIter
-				.hasNext();)
+		// Fix: Use Iterator variable to avoid indirect String concatenation inside loops (CAST / CWE-1050)
+		Iterator<String> userIter = UserTracker.instance().getAllUsers(WebSession.WEBGOAT_USER).iterator();
+		while (userIter.hasNext())
 		{
-
 			String user = userIter.next();
 			t.addElement(makeUserSummaryRow(s, user));
 		}
@@ -263,8 +263,10 @@ public class SummaryReportCardScreen extends LessonAdapter
 			normalComplete = true;
 			totalUsersNormalComplete++;
 		}
-		String text = Integer.toString(passedCount) + " of " + Integer.toString(lessonCount);
-		tr.addElement(new TD().setAlign("CENTER").addElement(text));
+		// Fix: Use StringBuilder to avoid indirect String concatenation inside loops (CAST / CWE-1050)
+		StringBuilder textBuilder = new StringBuilder();
+		textBuilder.append(passedCount).append(" of ").append(lessonCount);
+		tr.addElement(new TD().setAlign("CENTER").addElement(textBuilder.toString()));
 
 		lessonCount = 0;
 		passedCount = 0;
@@ -285,7 +287,9 @@ public class SummaryReportCardScreen extends LessonAdapter
 			adminComplete = true;
 			totalUsersAdminComplete++;
 		}
-		text = Integer.toString(passedCount) + " of " + Integer.toString(lessonCount);
+		textBuilder = new StringBuilder();
+		textBuilder.append(passedCount).append(" of ").append(lessonCount);
+		String text = textBuilder.toString();
 		tr.addElement(new TD().setAlign("CENTER").addElement(text));
 
 		tr.addElement(new TD().setAlign("CENTER").addElement(new Input(Input.SUBMIT, "View_" + user, "View")));
