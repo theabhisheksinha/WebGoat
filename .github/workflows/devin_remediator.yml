@@ -1,11 +1,15 @@
-name: Devin Remediation Dispatcher
+name: Devin PR Remediation Dispatcher
 on:
-  issues:
-    types: [labeled]
+  pull_request:
+    # Triggered when a label is added or the PR title/body is edited
+    types: [labeled, edited]
 
 jobs:
-  run-dispatcher:
-    if: github.event.label.name == 'devin-fix'
+  dispatch_to_devin:
+    # Logic: Run if the new label is 'devin-fix' OR if the title was edited to include 'devin-fix'
+    if: |
+      (github.event.action == 'labeled' && github.event.label.name == 'devin-fix') ||
+      (github.event.action == 'edited' && contains(github.event.pull_request.title, 'devin-fix'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,9 +21,10 @@ jobs:
         run: pip install requests
       - name: Dispatch to Devin
         env:
-          # This maps your GitHub Secrets and Event Data to the Script
           DEVIN_SERVICE_USER_TOKEN: ${{ secrets.DEVIN_TOKEN }}
           DEVIN_ORG_ID: ${{ secrets.DEVIN_ORG_ID }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          # Passing PR-specific data instead of Issue data
+          PR_BODY: ${{ github.event.pull_request.body }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
         run: python dispatcher.py
