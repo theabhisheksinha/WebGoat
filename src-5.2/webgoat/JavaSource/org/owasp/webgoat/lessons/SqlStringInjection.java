@@ -112,7 +112,7 @@ public class SqlStringInjection extends SequentialLessonAdapter
 						makeSuccess(s);
 						getLessonTracker(s).setStage(2);
 
-						StringBuffer msg = new StringBuffer();
+						StringBuffer msg = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 						msg.append("Bet you can't do it again! ");
 						msg.append("This lesson has detected your successfull attack ");
@@ -129,12 +129,12 @@ public class SqlStringInjection extends SequentialLessonAdapter
 			} catch (SQLException sqle)
 			{
 				ec.addElement(new P().addElement(sqle.getMessage()));
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -194,7 +194,7 @@ public class SqlStringInjection extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
