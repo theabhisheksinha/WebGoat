@@ -83,7 +83,7 @@ public class DOMInjection extends LessonAdapter
 
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		Form form = new Form(getFormAction(), Form.POST).setName("form").setEncType("");
 
