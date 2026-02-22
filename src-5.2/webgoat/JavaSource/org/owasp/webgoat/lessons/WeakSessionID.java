@@ -216,12 +216,14 @@ public class WeakSessionID extends LessonAdapter
 			username = s.getParser().getStringParameter(USERNAME);
 		} catch (ParameterNotFoundException pnfe)
 		{
+			System.out.println("Warning: username parameter not found: " + pnfe.getMessage());
 		}
 		try
 		{
 			password = s.getParser().getStringParameter(PASSWORD);
 		} catch (ParameterNotFoundException pnfe)
 		{
+			System.out.println("Warning: password parameter not found: " + pnfe.getMessage());
 		}
 
 		if (username != null || password != null)
