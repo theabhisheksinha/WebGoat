@@ -99,12 +99,12 @@ public class ListStaff extends DefaultLessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error getting employees");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error getting employees");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return employees;
