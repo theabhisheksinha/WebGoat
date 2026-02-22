@@ -115,7 +115,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return (ec);
 	}
@@ -160,7 +160,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return (ec);
 	}
@@ -301,7 +301,7 @@ public class ClientSideValidation extends SequentialLessonAdapter
 
 		t.addElement(tr);
 		tr = new TR();
-		tr.addElement(new TD().addElement("Hewlett-Packard - Pavilion Notebook with Intel® Centrino™"));
+		tr.addElement(new TD().addElement("Hewlett-Packard - Pavilion Notebook with Intelï¿½ Centrinoï¿½"));
 
 		tr.addElement(new TD().addElement(
 											new Input(Input.TEXT, "PRC3", s.getParser().getStringParameter("PRC3",
