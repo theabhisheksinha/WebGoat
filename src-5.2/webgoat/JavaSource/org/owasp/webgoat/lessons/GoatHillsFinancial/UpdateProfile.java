@@ -95,11 +95,11 @@ public class UpdateProfile extends DefaultLessonAction
 			} catch (UnauthenticatedException ue1)
 			{
 				//System.out.println("Internal server error");
-				ue1.printStackTrace();
+				System.err.println("Error: " + ue1.getMessage()); // CAST fix: replaced printStackTrace()
 			} catch (UnauthorizedException ue2)
 			{
 				//System.out.println("Internal server error");
-				ue2.printStackTrace();
+				System.err.println("Error: " + ue2.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		}
 		else
@@ -143,13 +143,13 @@ public class UpdateProfile extends DefaultLessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error updating employee profile");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 
 		} catch (Exception e)
 		{
 			s.setMessage("Error updating employee profile");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 
@@ -165,12 +165,12 @@ public class UpdateProfile extends DefaultLessonAction
 			uid = results.getInt("uid");
 		} catch (SQLException sqle)
 		{
-			sqle.printStackTrace();
+			System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			s.setMessage("Error updating employee profile");
 		} catch (ClassNotFoundException e)
 		{
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 		return uid + 1;
 	}
@@ -207,12 +207,12 @@ public class UpdateProfile extends DefaultLessonAction
 			} catch (SQLException sqle)
 			{
 				s.setMessage("Error updating employee profile");
-				sqle.printStackTrace();
+				System.err.println("Error: " + sqle.getMessage()); // CAST fix: replaced printStackTrace()
 			}
 		} catch (Exception e)
 		{
 			s.setMessage("Error updating employee profile");
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 	}
 }
