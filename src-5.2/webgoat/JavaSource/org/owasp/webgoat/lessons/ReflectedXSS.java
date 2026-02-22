@@ -70,7 +70,7 @@ public class ReflectedXSS extends LessonAdapter
 
 		try
 		{
-			String param1 = s.getParser().getRawParameter("field1", "111");
+			String param1 = HtmlEncoder.encode(s.getParser().getRawParameter("field1", "111"));
 			String param2 = HtmlEncoder.encode(s.getParser().getRawParameter("field2", "4128 3214 0002 1999"));
 			float quantity = 1.0f;
 			float total = 0.0f;
