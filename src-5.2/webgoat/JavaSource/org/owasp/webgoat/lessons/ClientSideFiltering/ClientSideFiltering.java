@@ -118,7 +118,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return (ec);
@@ -144,7 +144,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 		} catch (NumberFormatException e)
 		{
 
-			// e.printStackTrace();
+			// System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		if (answer == 450000)
@@ -217,7 +217,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return ec;
@@ -255,7 +255,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		}
 
 		return ec;
@@ -414,7 +414,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 	private String getFileContent(String content)
 	{
 		BufferedReader is = null;
-		StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer(64) // CAST fix: pre-sized buffer;
 
 		try
 		{
@@ -427,7 +427,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 			}
 		} catch (Exception e)
 		{
-			e.printStackTrace();
+			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
 		} finally
 		{
 			if (is != null)
