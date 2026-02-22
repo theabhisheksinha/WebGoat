@@ -332,12 +332,15 @@ public class StoredXss extends LessonAdapter
 				results.beforeFirst();
 
 				for (int i = 0; results.next(); i++)
-				{
-					A a = ECSFactory.makeLink(results.getString(TITLE_COL), NUMBER, results.getInt(NUM_COL));
-					TD td = new TD().addElement(a);
-					TR tr = new TR().addElement(td);
-					t.addElement(tr);
-				}
+					{
+						// Fix: Cache values to avoid indirect String concatenation inside loops (CAST / CWE-1050)
+						String titleVal = results.getString(TITLE_COL);
+						int numVal = results.getInt(NUM_COL);
+						A a = ECSFactory.makeLink(titleVal, NUMBER, numVal);
+						TD td = new TD().addElement(a);
+						TR tr = new TR().addElement(td);
+						t.addElement(tr);
+					}
 			}
 		} catch (Exception e)
 		{

@@ -139,41 +139,40 @@ public class XMLInjection extends LessonAdapter
 			isDone = true;
 		}
 		String lineSep = System.getProperty("line.separator");
-		String script = "<script>" + lineSep + "function getRewards() {" + lineSep
-				+ "var accountIDField = document.getElementById('" + ACCOUNTID + "');" + lineSep
-				+ "if (accountIDField.value.length < 6 ) { return; }" + lineSep + "var url = '" + getLink()
-				+ "&from=ajax&" + ACCOUNTID + "=' + encodeURIComponent(accountIDField.value);" + lineSep
-				+ "if (typeof XMLHttpRequest != 'undefined') {" + lineSep + "req = new XMLHttpRequest();" + lineSep
-				+ "} else if (window.ActiveXObject) {" + lineSep + "req = new ActiveXObject('Microsoft.XMLHTTP');"
-				+ lineSep + "   }" + lineSep + "   req.open('GET', url, true);" + lineSep
-				+ "   req.onreadystatechange = callback;" + lineSep + "   req.send(null);" + lineSep + "}"
-				+ lineSep
-				+ "function callback() {"
-				+ lineSep
-				+ "    if (req.readyState == 4) { "
-				+ lineSep
-				+ "        if (req.status == 200) { "
-				+ lineSep
-				+ "            var rewards = req.responseXML.getElementsByTagName('reward');"
-				+ lineSep
-				+ "			 var rewardsDiv = document.getElementById('rewardsDiv');"
-				+ lineSep
-				+ "				rewardsDiv.innerHTML = '';"
-				+ lineSep
-				+ "				var strHTML='';"
-				+ lineSep
-				+ "				strHTML = '<tr><td>&nbsp;</td><td><b>Rewards</b></td></tr>';"
-				+ lineSep
-				+ "			 for(var i=0; i< rewards.length; i++){"
-				// + lineSep
-				// + " var node = rewards.childNodes[i+1];"
-				+ lineSep
-				+ "				strHTML = strHTML + '<tr><td><input name=\"check' + (i+1001) +'\" type=\"checkbox\"></td><td>';"
-				+ lineSep + "			    strHTML = strHTML + rewards[i].firstChild.nodeValue + '</td></tr>';" + lineSep
-				+ "			 }" + lineSep + "				strHTML = '<table>' + strHTML + '</table>';" + lineSep
-				+ "				strHTML = 'Your account balance is now 100 points<br><br>' + strHTML;" + lineSep
-				+ "               rewardsDiv.innerHTML = strHTML;" + lineSep + "        }}}" + lineSep + "</script>"
-				+ lineSep;
+		// Fix: Use StringBuilder to avoid indirect String concatenation (CAST / CWE-1050)
+		StringBuilder scriptBuilder = new StringBuilder();
+		scriptBuilder.append("<script>").append(lineSep);
+		scriptBuilder.append("function getRewards() {").append(lineSep);
+		scriptBuilder.append("var accountIDField = document.getElementById('").append(ACCOUNTID).append("');").append(lineSep);
+		scriptBuilder.append("if (accountIDField.value.length < 6 ) { return; }").append(lineSep);
+		scriptBuilder.append("var url = '").append(getLink()).append("&from=ajax&").append(ACCOUNTID).append("=' + encodeURIComponent(accountIDField.value);").append(lineSep);
+		scriptBuilder.append("if (typeof XMLHttpRequest != 'undefined') {").append(lineSep);
+		scriptBuilder.append("req = new XMLHttpRequest();").append(lineSep);
+		scriptBuilder.append("} else if (window.ActiveXObject) {").append(lineSep);
+		scriptBuilder.append("req = new ActiveXObject('Microsoft.XMLHTTP');").append(lineSep);
+		scriptBuilder.append("   }").append(lineSep);
+		scriptBuilder.append("   req.open('GET', url, true);").append(lineSep);
+		scriptBuilder.append("   req.onreadystatechange = callback;").append(lineSep);
+		scriptBuilder.append("   req.send(null);").append(lineSep);
+		scriptBuilder.append("}").append(lineSep);
+		scriptBuilder.append("function callback() {").append(lineSep);
+		scriptBuilder.append("    if (req.readyState == 4) { ").append(lineSep);
+		scriptBuilder.append("        if (req.status == 200) { ").append(lineSep);
+		scriptBuilder.append("            var rewards = req.responseXML.getElementsByTagName('reward');").append(lineSep);
+		scriptBuilder.append("			 var rewardsDiv = document.getElementById('rewardsDiv');").append(lineSep);
+		scriptBuilder.append("				rewardsDiv.innerHTML = '';").append(lineSep);
+		scriptBuilder.append("				var strHTML='';").append(lineSep);
+		scriptBuilder.append("				strHTML = '<tr><td>&nbsp;</td><td><b>Rewards</b></td></tr>';").append(lineSep);
+		scriptBuilder.append("			 for(var i=0; i< rewards.length; i++){").append(lineSep);
+		scriptBuilder.append("				strHTML = strHTML + '<tr><td><input name=\"check' + (i+1001) +'\" type=\"checkbox\"></td><td>';").append(lineSep);
+		scriptBuilder.append("			    strHTML = strHTML + rewards[i].firstChild.nodeValue + '</td></tr>';").append(lineSep);
+		scriptBuilder.append("			 }").append(lineSep);
+		scriptBuilder.append("				strHTML = '<table>' + strHTML + '</table>';").append(lineSep);
+		scriptBuilder.append("				strHTML = 'Your account balance is now 100 points<br><br>' + strHTML;").append(lineSep);
+		scriptBuilder.append("               rewardsDiv.innerHTML = strHTML;").append(lineSep);
+		scriptBuilder.append("        }}}").append(lineSep);
+		scriptBuilder.append("</script>").append(lineSep);
+		String script = scriptBuilder.toString();
 
 		if (!isDone)
 		{
