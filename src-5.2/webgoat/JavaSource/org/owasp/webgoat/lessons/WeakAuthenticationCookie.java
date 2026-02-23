@@ -202,11 +202,12 @@ public class WeakAuthenticationCookie extends LessonAdapter
 	private String encode(String value)
 	{
 		// <START_OMIT_SOURCE>
-		StringBuffer encoded = new StringBuffer();
+		// Performance: pre-size buffer and use direct char append instead of String.valueOf()
+		StringBuffer encoded = new StringBuffer(value.length());
 
 		for (int i = 0; i < value.length(); i++)
 		{
-			encoded.append(String.valueOf((char) (value.charAt(i) + 1)));
+			encoded.append((char) (value.charAt(i) + 1));
 		}
 
 		return encoded.reverse().toString();
