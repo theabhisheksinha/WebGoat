@@ -5,19 +5,17 @@
 
 package org.owasp.webgoat.lessons;
 
-import java.rmi.RemoteException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ParameterMode;
-import javax.xml.rpc.ServiceException;
-import org.apache.axis.client.Call;
-import org.apache.axis.client.Service;
-import org.apache.axis.encoding.XMLType;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.html.A;
@@ -136,27 +134,38 @@ public class WSDLScanning extends LessonAdapter
 		return "WSDL Scanning";
 	}
 
+	/**
+	 * Access WebGoat web service via standard HTTP.
+	 * Replaces vulnerable Apache Axis 1.2 SOAP client (CVE-2012-5784, CVE-2014-3596,
+	 * CVE-2018-8032, CVE-2019-0227, CVE-2023-40743, CVE-2023-51441).
+	 */
 	public Object accessWGService(String serv, int port, String proc, String parameterName, Object parameterValue)
 	{
-		String targetNamespace = "WebGoat";
 		try
 		{
-			QName serviceName = new QName(targetNamespace, serv);
-			QName operationName = new QName(targetNamespace, proc);
-			Service service = new Service();
-			Call call = (Call) service.createCall();
-			call.setOperationName(operationName);
-			call.addParameter(parameterName, serviceName, ParameterMode.INOUT);
-			call.setReturnType(XMLType.XSD_STRING);
-			call.setUsername("guest");
-			call.setPassword("guest");
-			call.setTargetEndpointAddress("http://localhost:" + port + "/WebGoat/services/" + serv);
-			Object result = call.invoke(new Object[] { parameterValue });
-			return result;
-		} catch (RemoteException e)
-		{
-			e.printStackTrace();
-		} catch (ServiceException e)
+			String endpointUrl = "http://localhost:" + port + "/WebGoat/services/" + serv
+					+ "?method=" + proc + "&" + parameterName + "=" + parameterValue;
+			URL url = new URL(endpointUrl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "text/plain");
+			// Basic auth: guest/guest
+			String auth = java.util.Base64.getEncoder().encodeToString("guest:guest".getBytes());
+			conn.setRequestProperty("Authorization", "Basic " + auth);
+			int responseCode = conn.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK)
+			{
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				StringBuilder response = new StringBuilder();
+				String line;
+				while ((line = in.readLine()) != null)
+				{
+					response.append(line);
+				}
+				in.close();
+				return response.toString();
+			}
+		} catch (IOException e)
 		{
 			e.printStackTrace();
 		} catch (Exception e)
