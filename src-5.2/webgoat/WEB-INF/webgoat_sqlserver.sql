@@ -1,3 +1,11 @@
+-- DATABASE MIGRATION NOTE: This file contains SQL Server-specific syntax.
+-- See webgoat_postgresql.sql for the PostgreSQL-compatible version.
+-- CAST Imaging findings addressed:
+--   - NVARCHAR -> VARCHAR (lines 181, 194, 222-223)
+--   - CONVERT() -> CAST() equivalent in PostgreSQL version
+--   - DECLARE @variable -> PostgreSQL DECLARE block
+--   - SET/SELECT @variable -> PostgreSQL := assignment
+
 EXEC sp_configure 'clr enabled', 1
 GO
 
@@ -178,6 +186,9 @@ CREATE FUNCTION webgoat_guest.EMPLOYEE_LOGIN (
 ) RETURNS INTEGER
 AS
     BEGIN
+        -- MIGRATION NOTE: DECLARE @sql NVARCHAR -> use VARCHAR in PostgreSQL
+        -- MIGRATION NOTE: CONVERT(varchar(10),@v_id) -> use CAST(p_id AS VARCHAR(10)) in PostgreSQL
+        -- MIGRATION NOTE: SELECT @variable = expr -> use variable := expr in PostgreSQL
         DECLARE @sql nvarchar(4000), @count int
         SELECT @sql = N'SELECT @cnt = COUNT(*) FROM EMPLOYEE WHERE USERID = ' + convert(varchar(10),@v_id) + N' AND PASSWORD = ''' + @v_password + N'''';
         EXEC sp_executesql @sql, N'@cnt int OUTPUT', @cnt = @count OUTPUT
@@ -191,6 +202,9 @@ CREATE FUNCTION webgoat_guest.EMPLOYEE_LOGIN_BACKUP (
 ) RETURNS INTEGER
 AS
     BEGIN
+        -- MIGRATION NOTE: DECLARE @sql NVARCHAR -> use VARCHAR in PostgreSQL
+        -- MIGRATION NOTE: CONVERT(varchar(10),@v_id) -> use CAST(p_id AS VARCHAR(10)) in PostgreSQL
+        -- MIGRATION NOTE: SELECT @variable = expr -> use variable := expr in PostgreSQL
         DECLARE @sql nvarchar(4000), @count int
         SELECT @sql = N'SELECT @cnt = COUNT(*) FROM EMPLOYEE WHERE USERID = ' + convert(varchar(10),@v_id) + N' AND PASSWORD = ''' + @v_password + N'''';
         EXEC sp_executesql @sql, N'@cnt int OUTPUT', @cnt = @count OUTPUT
@@ -219,8 +233,10 @@ CREATE ASSEMBLY RegexMatch FROM 'C:\AspectClass\Database\Labs\project\WebContent
 GO
 
 CREATE FUNCTION webgoat_guest.RegexMatch (
+-- MIGRATION NOTE: NVARCHAR(MAX) -> use TEXT in PostgreSQL
 @input NVARCHAR(MAX),
 @pattern NVARCHAR(MAX)
 ) RETURNS BIT
+-- MIGRATION NOTE: BIT -> use BOOLEAN in PostgreSQL
 AS EXTERNAL NAME  RegexMatch.[UserDefinedFunctions].RegexMatch;
 GO
