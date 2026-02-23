@@ -15,7 +15,7 @@ import org.owasp.webgoat.session.WebSession;
 
 /**
  *  Copyright (c) 2006 Free Software Foundation developed under the custody of the Open Web
- *  Application Security Project (http://www.owasp.org) This software package org.owasp.webgoat.is published by OWASP
+ *  Application Security Project (https://www.owasp.org) This software package org.owasp.webgoat.is published by OWASP
  *  under the GPL. You should read and accept the LICENSE before you use, modify and/or redistribute
  *  this software.
  *

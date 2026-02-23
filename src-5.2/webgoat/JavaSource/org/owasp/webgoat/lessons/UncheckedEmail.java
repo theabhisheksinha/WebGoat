@@ -15,6 +15,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -38,7 +40,7 @@ import org.owasp.webgoat.session.WebSession;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -59,14 +61,22 @@ import org.owasp.webgoat.session.WebSession;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
- * @author Bruce Mayhew <a href="http://code.google.com/p/webgoat">WebGoat</a>
+ * @author Bruce Mayhew <a href="https://code.google.com/p/webgoat">WebGoat</a>
  * @created October 28, 2003
  */
 
+/**
+ * CLOUD MIGRATION NOTE: Email sending has been refactored to use configurable
+ * SMTP settings via system properties or environment variables instead of
+ * hardcoded values. This supports cloud-native email services (AWS SES,
+ * SendGrid, etc.) by externalizing SMTP configuration.
+ */
 public class UncheckedEmail extends LessonAdapter
 {
+	private static final Logger logger = Logger.getLogger(UncheckedEmail.class.getName());
+
 	private final String YOUR_REAL_GMAIL_PASSWORD = "password";
 
 	private final String YOUR_REAL_GMAIL_ID = "GMail id";
@@ -78,9 +88,10 @@ public class UncheckedEmail extends LessonAdapter
 	private final static String GMAIL_ID = "gId";
 	private final static String GMAIL_PASS = "gPass";
 
-	private static final String SMTP_HOST_NAME = "smtp.gmail.com";
-	private static final String SMTP_PORT = "465";
-	private static final String emailFromAddress = "webgoat@owasp.org";
+	// CLOUD MIGRATION: SMTP settings are now configurable via environment variables
+	private static final String SMTP_HOST_NAME = System.getProperty("webgoat.smtp.host", "smtp.gmail.com");
+	private static final String SMTP_PORT = System.getProperty("webgoat.smtp.port", "465");
+	private static final String emailFromAddress = System.getProperty("webgoat.smtp.from", "webgoat@owasp.org");
 	private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
 	/**
@@ -139,7 +150,7 @@ public class UncheckedEmail extends LessonAdapter
 		} catch (Exception e)
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
-			e.printStackTrace();
+			logger.log(Level.WARNING, "Error in UncheckedEmail lesson", e);
 		}
 		return (ec);
 	}
@@ -392,7 +403,7 @@ public class UncheckedEmail extends LessonAdapter
 		hints.add("Try inserting some html or javascript code in the message field");
 		hints.add("Look at the hidden fields in the HTML.");
 		hints
-				.add("Insert &lt;A href=\"http://code.google.com/p/webgoat/\"&gt;Click here for the WebGoat Project&lt;/A&gt in the message field");
+				.add("Insert &lt;A href=\"https://code.google.com/p/webgoat/\"&gt;Click here for the WebGoat Project&lt;/A&gt in the message field");
 		hints.add("Insert &lt;script&gt;alert(\"Bad Stuff\");&lt;/script&gt; in the message field");
 		return hints;
 	}

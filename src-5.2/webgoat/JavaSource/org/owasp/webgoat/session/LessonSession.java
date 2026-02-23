@@ -5,7 +5,7 @@ package org.owasp.webgoat.session;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -26,11 +26,11 @@ package org.owasp.webgoat.session;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
  * Represents a virtual session for a lesson. Lesson-specific session data may be stored here.
  * 
- * @author David Anderson <a href="http://www.aspectsecurity.com">Aspect Security</a>
+ * @author David Anderson <a href="https://www.aspectsecurity.com">Aspect Security</a>
  * @created January 19, 2006
  */
 public class LessonSession

@@ -3,8 +3,12 @@ package org.owasp.webgoat.lessons;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.StringElement;
@@ -22,7 +26,7 @@ import org.owasp.webgoat.session.WebSession;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -42,13 +46,20 @@ import org.owasp.webgoat.session.WebSession;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
- * @author Bruce Mayhew <a href="http://code.google.com/p/webgoat">WebGoat</a>
+ * @author Bruce Mayhew <a href="https://code.google.com/p/webgoat">WebGoat</a>
  * @created October 28, 2003
+ */
+/**
+ * CLOUD MIGRATION NOTE: This class uses HttpSession for stateful session management
+ * (setSessionAttribute/getSessionAttribute). For cloud deployments, consider using
+ * an externalized session store (e.g., Redis, DynamoDB) to support horizontal scaling
+ * and stateless container deployments.
  */
 public abstract class LessonAdapter extends AbstractLesson
 {
+	private static final Logger logger = Logger.getLogger(LessonAdapter.class.getName());
 
 	/**
 	 * Description of the Method
@@ -71,7 +82,7 @@ public abstract class LessonAdapter extends AbstractLesson
 				.addElement(new StringElement(
 						"Lesson are simple to create and very little coding is required. &nbsp;&nbsp;"
 								+ "In fact, most lessons can be created by following the easy to use instructions in the "
-								+ "<A HREF=http://www.owasp.org/index.php/WebGoat_User_and_Install_Guide_Table_of_Contents>WebGoat User Guide.</A>&nbsp;&nbsp;"
+								+ "<A HREF=https://www.owasp.org/index.php/WebGoat_User_and_Install_Guide_Table_of_Contents>WebGoat User Guide.</A>&nbsp;&nbsp;"
 								+ "If you would prefer, send your lesson ideas to "
 								+ getWebgoatContext().getFeedbackAddressHTML()));
 
@@ -221,11 +232,19 @@ public abstract class LessonAdapter extends AbstractLesson
 		s.getLessonSession(this).setCurrentLessonScreen(lessonScreen);
 	}
 
+	/**
+	 * CLOUD MIGRATION: Session attributes should be stored in an externalized
+	 * session store for cloud deployments to support horizontal scaling.
+	 */
 	public Object getSessionAttribute(WebSession s, String key)
 	{
 		return s.getRequest().getSession().getAttribute(key);
 	}
 
+	/**
+	 * CLOUD MIGRATION: Session attributes should be stored in an externalized
+	 * session store for cloud deployments to support horizontal scaling.
+	 */
 	public void setSessionAttribute(WebSession s, String key, Object value)
 	{
 		s.getRequest().getSession().setAttribute(key, value);

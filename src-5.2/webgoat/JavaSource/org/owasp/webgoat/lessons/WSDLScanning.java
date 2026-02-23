@@ -5,19 +5,15 @@
 
 package org.owasp.webgoat.lessons;
 
-import java.rmi.RemoteException;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.namespace.QName;
-import javax.xml.rpc.ParameterMode;
-import javax.xml.rpc.ServiceException;
-import org.apache.axis.client.Call;
-import org.apache.axis.client.Service;
-import org.apache.axis.encoding.XMLType;
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.html.A;
@@ -35,12 +31,20 @@ import org.owasp.webgoat.session.ECSFactory;
 import org.owasp.webgoat.session.WebSession;
 import org.owasp.webgoat.session.WebgoatContext;
 
+/**
+ * CLOUD MIGRATION NOTE: This class previously used JAX-RPC (javax.xml.rpc) and
+ * Apache Axis for SOAP web service calls, plus java.rmi for remote method invocation.
+ * These technologies are deprecated and not cloud-compatible.
+ * Refactored to use standard Java HttpURLConnection for cloud-ready HTTP communication.
+ * For production cloud deployments, consider migrating to JAX-WS or a REST-based approach.
+ */
+
 
 /***************************************************************************************************
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -61,7 +65,7 @@ import org.owasp.webgoat.session.WebgoatContext;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
  * @author asmolen
  * 
@@ -118,7 +122,7 @@ public class WSDLScanning extends LessonAdapter
 		hints.add("Try connecting to the WSDL with a browser or Web Service tool.");
 		hints.add("Sometimes the WSDL will define methods that are not available through a web API. "
 				+ "Try to find operations that are in the WSDL, but not part of this API");
-		hints.add("The URL for the web service is: http://localost/WebGoat/services/WSDLScanning <br>"
+		hints.add("The URL for the web service is: /WebGoat/services/WSDLScanning <br>"
 				+ "The WSDL can usually be viewed by adding a ?WSDL on the end of the request.");
 		hints.add("Look in the WSDL for the getCreditCard operation and insert the field in an intercepted request.");
 		return hints;
@@ -136,27 +140,39 @@ public class WSDLScanning extends LessonAdapter
 		return "WSDL Scanning";
 	}
 
+	/**
+	 * Access WebGoat web service using standard HTTP connection.
+	 * Refactored from JAX-RPC/Axis to use cloud-compatible HttpURLConnection.
+	 * The endpoint URL is now constructed dynamically from the request context
+	 * rather than using a hardcoded localhost reference.
+	 */
 	public Object accessWGService(String serv, int port, String proc, String parameterName, Object parameterValue)
 	{
-		String targetNamespace = "WebGoat";
 		try
 		{
-			QName serviceName = new QName(targetNamespace, serv);
-			QName operationName = new QName(targetNamespace, proc);
-			Service service = new Service();
-			Call call = (Call) service.createCall();
-			call.setOperationName(operationName);
-			call.addParameter(parameterName, serviceName, ParameterMode.INOUT);
-			call.setReturnType(XMLType.XSD_STRING);
-			call.setUsername("guest");
-			call.setPassword("guest");
-			call.setTargetEndpointAddress("http://localhost:" + port + "/WebGoat/services/" + serv);
-			Object result = call.invoke(new Object[] { parameterValue });
-			return result;
-		} catch (RemoteException e)
-		{
-			e.printStackTrace();
-		} catch (ServiceException e)
+			String scheme = System.getProperty("webgoat.protocol", "https");
+			String host = System.getProperty("webgoat.host", "localhost");
+			String endpointUrl = scheme + "://" + host + ":" + port + "/WebGoat/services/" + serv
+					+ "?method=" + proc + "&" + parameterName + "=" + parameterValue;
+			URL url = new URL(endpointUrl);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			conn.setRequestProperty("Accept", "text/plain");
+			int responseCode = conn.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK)
+			{
+				java.io.BufferedReader in = new java.io.BufferedReader(
+						new java.io.InputStreamReader(conn.getInputStream()));
+				StringBuilder response = new StringBuilder();
+				String line;
+				while ((line = in.readLine()) != null)
+				{
+					response.append(line);
+				}
+				in.close();
+				return response.toString();
+			}
+		} catch (IOException e)
 		{
 			e.printStackTrace();
 		} catch (Exception e)

@@ -178,7 +178,7 @@ StringBuffer buildList = new StringBuffer();
 			    {
 			    	%>
 			    	<div id="training_wrap">
-			    	<div id="training" class="info"><a href="http://yehg.net/lab/pr0js/training/webgoat.php">Solution Videos</a></div>
+			    	<div id="training" class="info"><a href="https://yehg.net/lab/pr0js/training/webgoat.php">Solution Videos</a></div>
 			    	<div id="reset" class="info"><a href="<%=webSession.getRestartLink()%>">Restart this Lesson</a></div>
 			    	</div>
 	    			<%
@@ -242,8 +242,8 @@ StringBuffer buildList = new StringBuffer();
 	  	</div>
 
 		<div id="bottom">
-			<div align="center"><a href="http://www.owasp.org">OWASP Foundation</a> | 
-								<a href="http://www.owasp.org/index.php/OWASP_WebGoat_Project">Project WebGoat</a> | 
+			<div align="center"><a href="https://www.owasp.org">OWASP Foundation</a> | 
+								<a href="https://www.owasp.org/index.php/OWASP_WebGoat_Project">Project WebGoat</a> | 
 								<a href="mailto: <%=webSession.getWebgoatContext().getFeedbackAddress()%>?subject=WebGoat Bug Report - Lesson: 
 												 <%=webSession.getCurrentLesson().getName()%>">Report Bug</a>
 			</div>

@@ -9,7 +9,7 @@ import java.util.Map;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -30,7 +30,7 @@ import java.util.Map;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  */
 public class HtmlEncoder
 {
@@ -131,7 +131,7 @@ public class HtmlEncoder
 	 * e.g. <tt>"bread" & "butter"</tt> => <tt>&amp;quot;bread&amp;quot; &amp;amp;
 	 *  &amp;quot;butter&amp;quot;</tt> .
 	 * Update: supports nearly all HTML entities, including funky accents. See the source code for
-	 * more detail. Adapted from http://www.purpletech.com/code/src/com/purpletech/util/Utils.java.
+	 * more detail. Adapted from https://www.purpletech.com/code/src/com/purpletech/util/Utils.java.
 	 * 
 	 * @param s1
 	 *            Description of the Parameter
@@ -171,7 +171,7 @@ public class HtmlEncoder
 	/**
 	 * Given a string containing entity escapes, returns a string containing the actual Unicode
 	 * characters corresponding to the escapes. Adapted from
-	 * http://www.purpletech.com/code/src/com/purpletech/util/Utils.java.
+	 * https://www.purpletech.com/code/src/com/purpletech/util/Utils.java.
 	 * 
 	 * @param s1
 	 *            Description of the Parameter

@@ -27,7 +27,7 @@ import org.owasp.webgoat.session.WebSession;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -48,15 +48,15 @@ import org.owasp.webgoat.session.WebSession;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
- * @author Jeff Williams <a href="http://www.aspectsecurity.com">Aspect Security</a>
- * @author Bruce Mayhew <a href="http://code.google.com/p/webgoat">WebGoat</a>
+ * @author Jeff Williams <a href="https://www.aspectsecurity.com">Aspect Security</a>
+ * @author Bruce Mayhew <a href="https://code.google.com/p/webgoat">WebGoat</a>
  * @created October 28, 2003
  */
 public class HiddenFieldTampering extends LessonAdapter
 {
-	public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
+	public final static A ASPECT_LOGO = new A().setHref("https://www.aspectsecurity.com")
 			.addElement(
 						new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
 								.setVspace(0));
@@ -197,7 +197,7 @@ public class HiddenFieldTampering extends LessonAdapter
 		hints.add("This application is using hidden fields to transmit price information to the server.");
 		hints.add("Use a program to intercept and change the value in the hidden field.");
 		hints
-				.add("Use <A href=\"http://www.owasp.org/development/webscarab\">WebScarab</A> to change the price of the TV from "
+				.add("Use <A href=\"https://www.owasp.org/development/webscarab\">WebScarab</A> to change the price of the TV from "
 						+ PRICE_TV + " to " + PRICE_TV_HACKED + ".");
 
 		return hints;

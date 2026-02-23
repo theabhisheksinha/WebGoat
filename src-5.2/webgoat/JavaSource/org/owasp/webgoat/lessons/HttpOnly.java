@@ -24,7 +24,7 @@ import sun.misc.BASE64Encoder;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -45,12 +45,12 @@ import sun.misc.BASE64Encoder;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  */
 public class HttpOnly extends LessonAdapter
 {
 
-	public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
+	public final static A ASPECT_LOGO = new A().setHref("https://www.aspectsecurity.com")
 			.addElement(
 						new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
 								.setVspace(0));

@@ -39,7 +39,7 @@ import org.owasp.webgoat.session.ECSFactory;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -60,9 +60,9 @@ import org.owasp.webgoat.session.ECSFactory;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
- * @author Sherif Koussa <a href="http://www.macadamian.com">Macadamian Technologies.</a>
+ * @author Sherif Koussa <a href="https://www.macadamian.com">Macadamian Technologies.</a>
  * @created November 28, 2006
  */
 
