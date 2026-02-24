@@ -704,7 +704,9 @@ public class ECSFactory
 	 */
 	public static Element makeTallHeader(String title)
 	{
-		StringBuffer buff = new StringBuffer();
+		// Performance: pre-size buffer to avoid repeated resizing
+		// Each char adds 1 char + 4 chars for "<BR>" = 5 chars per iteration
+		StringBuffer buff = new StringBuffer(title.length() * 5);
 		for (int i = 0; i < title.length(); i++)
 		{
 			buff.append(title.charAt(i));
