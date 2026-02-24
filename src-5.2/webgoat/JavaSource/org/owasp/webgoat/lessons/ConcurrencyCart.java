@@ -29,7 +29,7 @@ import org.owasp.webgoat.util.HtmlEncoder;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -50,9 +50,9 @@ import org.owasp.webgoat.util.HtmlEncoder;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
- * @author Ryan Knell <a href="http://www.aspectsecurity.com">Aspect Security</a>
+ * @author Ryan Knell <a href="https://www.aspectsecurity.com">Aspect Security</a>
  * @created July, 23 2007
  */
 
@@ -70,7 +70,7 @@ public class ConcurrencyCart extends LessonAdapter
 	private float ratio = 0;
 	private int discount = 0;
 
-	public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
+	public final static A ASPECT_LOGO = new A().setHref("https://www.aspectsecurity.com")
 			.addElement(
 						new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
 								.setVspace(0));

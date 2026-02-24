@@ -24,7 +24,7 @@ import com.sun.corba.se.spi.activation.Server;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -45,7 +45,7 @@ import com.sun.corba.se.spi.activation.Server;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  */
 public class ViewProfile extends DefaultLessonAction
 {

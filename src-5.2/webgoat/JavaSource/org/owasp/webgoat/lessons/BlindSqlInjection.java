@@ -21,7 +21,7 @@ import org.owasp.webgoat.session.WebSession;
  * 
  * 
  * This file is part of WebGoat, an Open Web Application Security Project utility. For details,
- * please see http://www.owasp.org/
+ * please see https://www.owasp.org/
  * 
  * Copyright (c) 2002 - 2007 Bruce Mayhew
  * 
@@ -42,7 +42,7 @@ import org.owasp.webgoat.session.WebSession;
  * Source for this application is maintained at code.google.com, a repository for free software
  * projects.
  * 
- * For details, please see http://code.google.com/p/webgoat/
+ * For details, please see https://code.google.com/p/webgoat/
  * 
  * @author Chuck Willis <a href="http://www.securityfoundry.com">Chuck's web site</a> (this lesson
  *         is heavily based on Bruce Mayhews' SQL Injection lesson

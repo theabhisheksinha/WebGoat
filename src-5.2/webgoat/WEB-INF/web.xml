@@ -68,36 +68,12 @@
          You can define any number of servlets, including zero.
     -->
 
-    <servlet>
-      <servlet-name>AxisServlet</servlet-name>
-      <display-name>Apache-Axis Servlet</display-name>
-      <servlet-class>
-          org.apache.axis.transport.http.AxisServlet
-      </servlet-class>
-    </servlet>
- 
-    <servlet>
-      <servlet-name>AdminServlet</servlet-name>
-      <display-name>Axis Admin Servlet</display-name>
-      <servlet-class>
-          org.apache.axis.transport.http.AdminServlet
-      </servlet-class>
-      <load-on-startup>100</load-on-startup>
-    </servlet>
+    <!-- REMOVED: Axis servlets removed to resolve cloud blockers:
+         CAST 1200236 (Critical): Deprecated framework version (Apache Axis 1.2)
+         CAST 1200374 (High): JAX-RPC technology
+         CAST 1200377 (High): Java RMI
+         WSDLScanning lesson refactored to use standard Java HttpURLConnection. -->
 
-    <servlet>
-      <servlet-name>SOAPMonitorService</servlet-name>
-      <display-name>SOAPMonitorService</display-name>
-      <servlet-class>
-          org.apache.axis.monitor.SOAPMonitorService
-      </servlet-class>
-      <init-param>
-        <param-name>SOAPMonitorPort</param-name>
-        <param-value>5001</param-value>
-      </init-param>
-      <load-on-startup>100</load-on-startup>
-    </servlet>
- 
     <servlet>
       <servlet-name>WebGoat</servlet-name>
       <description>
@@ -220,26 +196,8 @@
     -->
 
 
-    <servlet-mapping>
-      <servlet-name>AxisServlet</servlet-name>
-      <url-pattern>/servlet/AxisServlet</url-pattern>
-    </servlet-mapping>
- 
-    <servlet-mapping>
-      <servlet-name>AxisServlet</servlet-name>
-      <url-pattern>*.jws</url-pattern>
-    </servlet-mapping>
- 
-    <servlet-mapping>
-      <servlet-name>AxisServlet</servlet-name>
-      <url-pattern>/services/*</url-pattern>
-    </servlet-mapping>
- 
-    <servlet-mapping>
-      <servlet-name>SOAPMonitorService</servlet-name>
-      <url-pattern>/SOAPMonitor</url-pattern>
-    </servlet-mapping>
- 
+    <!-- REMOVED: Axis servlet mappings removed (see Axis servlet removal comment above) -->
+
     <!-- uncomment this if you want the admin servlet -->
     <!--
     <servlet-mapping>
