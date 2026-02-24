@@ -83,11 +83,12 @@ public class ReportCardScreen extends LessonAdapter
 				user = s.getUserName();
 			}
 		} catch (Exception e)
-		{
-		}
+			{
+				System.out.println("Warning: error retrieving user for report card: " + e.getMessage());
+			}
 
-		if (user == null)
-		{
+			if (user == null)
+			{
 			user = s.getUserName();
 		}
 
