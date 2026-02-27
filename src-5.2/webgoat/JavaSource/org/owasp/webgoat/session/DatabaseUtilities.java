@@ -133,11 +133,17 @@ public class DatabaseUtilities
 			Table t = new Table(1); // 1 = with border
 			t.setCellPadding(1);
 
-			TR tr = new TR();
-
-			for (int i = 1; i < (numColumns + 1); i++)
+			// Performance: cache column names to avoid repeated metadata lookups
+			String[] columnNames = new String[numColumns];
+			for (int i = 0; i < numColumns; i++)
 			{
-				tr.addElement(new TD(new B(resultsMetaData.getColumnName(i))));
+				columnNames[i] = resultsMetaData.getColumnName(i + 1);
+			}
+
+			TR tr = new TR();
+			for (int i = 0; i < numColumns; i++)
+			{
+				tr.addElement(new TD(new B(columnNames[i])));
 			}
 
 			t.addElement(tr);
@@ -147,7 +153,7 @@ public class DatabaseUtilities
 			{
 				TR row = new TR();
 
-				for (int i = 1; i < (numColumns + 1); i++)
+				for (int i = 1; i <= numColumns; i++)
 				{
 					String str = results.getString(i);
 					if (str == null) str = "";
