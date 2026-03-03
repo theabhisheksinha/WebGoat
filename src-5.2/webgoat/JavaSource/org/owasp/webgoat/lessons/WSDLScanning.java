@@ -5,7 +5,7 @@
 
 package org.owasp.webgoat.lessons;
 
-import java.rmi.RemoteException;
+import java.rmi.RemoteException;  // MIGRATION (CAST #1200377): Java RMI is not cloud-friendly; replace with REST/HTTP or gRPC
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -153,7 +153,7 @@ public class WSDLScanning extends LessonAdapter
 			call.setTargetEndpointAddress("http://localhost:" + port + "/WebGoat/services/" + serv);
 			Object result = call.invoke(new Object[] { parameterValue });
 			return result;
-		} catch (RemoteException e)
+		} catch (RemoteException e)  // MIGRATION: java.rmi.RemoteException ties this to RMI; use IOException or WebServiceException
 		{
 			e.printStackTrace();
 		} catch (ServiceException e)
