@@ -67,7 +67,13 @@ import org.owasp.webgoat.session.WebgoatContext;
  * 
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
+ * 
+ * @deprecated This class uses deprecated Apache Axis JAX-RPC framework (javax.xml.rpc).
+ *             Migration path: Replace Apache Axis 1.x JAX-RPC with JAX-WS (javax.xml.ws)
+ *             or a modern REST-based approach. JAX-RPC was removed in Java EE 9+.
+ *             See: https://jakarta.ee/specifications/xml-web-services/
  */
+@Deprecated
 public class WSDLScanning extends LessonAdapter
 {
 
@@ -136,6 +142,12 @@ public class WSDLScanning extends LessonAdapter
 		return "WSDL Scanning";
 	}
 
+	/**
+	 * @deprecated Uses Apache Axis 1.x JAX-RPC (javax.xml.rpc.Call).
+	 *             Migrate to JAX-WS (javax.xml.ws.Service) or a REST client.
+	 *             Apache Axis 1.x is EOL and has known security vulnerabilities.
+	 */
+	@Deprecated
 	public Object accessWGService(String serv, int port, String proc, String parameterName, Object parameterValue)
 	{
 		String targetNamespace = "WebGoat";
@@ -143,6 +155,8 @@ public class WSDLScanning extends LessonAdapter
 		{
 			QName serviceName = new QName(targetNamespace, serv);
 			QName operationName = new QName(targetNamespace, proc);
+			// MIGRATION NOTE: Replace org.apache.axis.client.Service with javax.xml.ws.Service
+			// and org.apache.axis.client.Call with javax.xml.ws.Dispatch or generated client stubs
 			Service service = new Service();
 			Call call = (Call) service.createCall();
 			call.setOperationName(operationName);
