@@ -18,7 +18,7 @@ def trigger_remediation():
     GOAL: Perform autonomous ISO-5055 remediation on the 'WebGoat_5.2_Devin' branch.
     
     INSTRUCTIONS:
-    1. Connect to the 'cast-imaging-express' MCP server to identify specific structural issues.
+    1. Connect to the 'cast-imaging-express' or 'cast-imaging' MCP server to identify specific structural issues.
     2. Identify all ISO-5055 Security flaws (e.g., SQL Injection, XSS) and ISO-5055 Performance flaws.
     3. Identify all  cloud detection pattern, Green Detection pattern, structural-flaws
     4. Create a new branch for the fix. 
