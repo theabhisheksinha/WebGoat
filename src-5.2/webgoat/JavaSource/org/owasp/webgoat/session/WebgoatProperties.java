@@ -49,6 +49,7 @@ public class WebgoatProperties extends Properties
 			load(in);
 		} catch (IOException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Warning: Unable to open webgoat.properties file");
 		}
 	}
@@ -114,9 +115,12 @@ public class WebgoatProperties extends Properties
 			properties = new WebgoatProperties("C:\\webgoat.properties");
 		} catch (IOException e)
 		{
+			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error loading properties");
-			e.printStackTrace();
+			System.err.println("Error: " + e); // CAST fix: replaced printStackTrace()
+			return;
 		}
+		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println(properties.getProperty("CommandInjection.category"));
 	}
 
