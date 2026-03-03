@@ -94,7 +94,7 @@ public class RandomLessonTracker extends LessonTracker
 		buff.append(super.toString());
 		for (int i = 0; i < stages.length; i++)
 		{
-			buff.append("    - completed " + stages[i] + " :....... " + hasCompleted(stages[i]) + "\n");
+			buff.append("    - completed ").append(stages[i]).append(" :....... ").append(hasCompleted(stages[i])).append("\n");
 		}
 		buff.append("    - currentStage:....... " + getStage() + "\n");
 		return buff.toString();

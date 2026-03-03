@@ -233,10 +233,10 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 				{
 					if (numbers)
 					{
-						sb.append(pad(++count) + "    ");
+						sb.append(pad(++count)).append("    ");
 					}
 
-					sb.append(line + "\n");
+					sb.append(line).append("\n");
 				}
 
 				if (echo && (line.indexOf("{") != -1))
@@ -304,9 +304,9 @@ public abstract class AbstractLesson extends Screen implements Comparable<Object
 			{
 				if (numbers)
 				{
-					sb.append(pad(++count) + "  ");
+					sb.append(pad(++count)).append("  ");
 				}
-				sb.append(line + System.getProperty("line.separator"));
+				sb.append(line).append(System.getProperty("line.separator"));
 			}
 
 			reader.close();

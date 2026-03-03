@@ -191,7 +191,7 @@ public class CommandInjection extends LessonAdapter
 
 			if (s.length() > 0 && s.endsWith(".help"))
 			{
-				modified.append(s + "\n");
+				modified.append(s).append("\n");
 			}
 		}
 
