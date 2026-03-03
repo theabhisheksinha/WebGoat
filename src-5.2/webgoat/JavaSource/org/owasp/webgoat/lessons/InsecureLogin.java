@@ -25,6 +25,12 @@ import org.owasp.webgoat.session.WebSession;
 
 
 
+/**
+ * MIGRATION NOTE (CAST #1200042 - Use of unsecured network protocols):
+ * This lesson demonstrates insecure login over HTTP. In cloud/production
+ * environments, all communication must use HTTPS/TLS to prevent credential
+ * interception. Enforce TLS termination at the load balancer or ingress.
+ */
 public class InsecureLogin extends SequentialLessonAdapter
 {
 	

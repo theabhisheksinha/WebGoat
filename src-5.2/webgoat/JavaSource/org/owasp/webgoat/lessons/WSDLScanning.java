@@ -118,6 +118,7 @@ public class WSDLScanning extends LessonAdapter
 		hints.add("Try connecting to the WSDL with a browser or Web Service tool.");
 		hints.add("Sometimes the WSDL will define methods that are not available through a web API. "
 				+ "Try to find operations that are in the WSDL, but not part of this API");
+		// MIGRATION (CAST #1200042): Unsecured HTTP protocol - should use HTTPS
 		hints.add("The URL for the web service is: http://localost/WebGoat/services/WSDLScanning <br>"
 				+ "The WSDL can usually be viewed by adding a ?WSDL on the end of the request.");
 		hints.add("Look in the WSDL for the getCreditCard operation and insert the field in an intercepted request.");
@@ -150,6 +151,7 @@ public class WSDLScanning extends LessonAdapter
 			call.setReturnType(XMLType.XSD_STRING);
 			call.setUsername("guest");
 			call.setPassword("guest");
+			// MIGRATION (CAST #1200042): Unsecured HTTP protocol - should use HTTPS in production
 			call.setTargetEndpointAddress("http://localhost:" + port + "/WebGoat/services/" + serv);
 			Object result = call.invoke(new Object[] { parameterValue });
 			return result;
