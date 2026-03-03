@@ -43,14 +43,22 @@ public class WebgoatProperties extends Properties
 
 	public WebgoatProperties(String propertiesFileName) throws IOException
 	{
+		FileInputStream in = null;
 		try
 		{
-			FileInputStream in = new FileInputStream(propertiesFileName);
+			in = new FileInputStream(propertiesFileName);
 			load(in);
 		} catch (IOException e)
 		{
 			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Warning: Unable to open webgoat.properties file");
+		} finally
+		{
+			// Green: explicitly close stream to release resources (CAST #1200126)
+			if (in != null)
+			{
+				try { in.close(); } catch (IOException ignore) { /* already handled */ }
+			}
 		}
 	}
 

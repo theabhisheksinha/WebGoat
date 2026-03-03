@@ -719,14 +719,23 @@ public class Challenge2Screen extends SequentialLessonAdapter
 	 */
 	protected void sendMessage(Socket s, String message)
 	{
+		OutputStreamWriter osw = null;
 		try
 		{
-			OutputStreamWriter osw = new OutputStreamWriter(s.getOutputStream());
+			osw = new OutputStreamWriter(s.getOutputStream());
 			osw.write(message);
+			osw.flush();
 		} catch (Exception e)
 		{
 			//System.out.println("Couldn't write " + message + " to " + s);
 			e.printStackTrace();
+		} finally
+		{
+			// Green: explicitly close stream to release resources (CAST #1200126)
+			if (osw != null)
+			{
+				try { osw.close(); } catch (Exception ignore) { /* already handled */ }
+			}
 		}
 	}
 
