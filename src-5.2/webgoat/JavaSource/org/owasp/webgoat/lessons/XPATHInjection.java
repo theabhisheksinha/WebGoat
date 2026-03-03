@@ -84,6 +84,7 @@ public class XPATHInjection extends LessonAdapter
 		NodeList nodes = null;
 		ElementContainer ec = new ElementContainer();
 
+		FileInputStream fis = null;
 		try
 		{
 			ec.addElement(new BR().addElement(new H1().addElement("Welcome to WebGoat employee intranet")));
@@ -139,7 +140,9 @@ public class XPATHInjection extends LessonAdapter
 				File d = new File(dir);
 				XPathFactory factory = XPathFactory.newInstance();
 				XPath xPath = factory.newXPath();
-				InputSource inputSource = new InputSource(new FileInputStream(d));
+				// Green: explicitly open and close FileInputStream (CAST #1200126)
+				FileInputStream fis = new FileInputStream(d);
+				InputSource inputSource = new InputSource(fis);
 
 				// Fix: Use XPath variable resolver to prevent XPath injection (CAST #7750 / CWE-91)
 				final String safeUsername = username;
@@ -204,6 +207,13 @@ public class XPATHInjection extends LessonAdapter
 		{
 			s.setMessage("Error generating " + this.getClass().getName());
 			e.printStackTrace();
+		} finally
+		{
+			// Green: explicitly close FileInputStream (CAST #1200126)
+			if (fis != null)
+			{
+				try { fis.close(); } catch (IOException ignore) { /* already handled */ }
+			}
 		}
 		return ec;
 	}
