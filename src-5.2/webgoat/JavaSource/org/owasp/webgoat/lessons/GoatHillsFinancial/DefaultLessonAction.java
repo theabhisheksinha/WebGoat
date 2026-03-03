@@ -84,6 +84,14 @@ public abstract class DefaultLessonAction implements LessonAction
 		return actionName;
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200052 - Stateful Session):
+	 * Direct use of HttpSession.setAttribute() couples this code to the servlet
+	 * container's in-memory session store. In cloud/PaaS environments with
+	 * multiple instances, sessions are not shared across nodes.
+	 * Migrate to: externalized session store (Redis, Memcached, database)
+	 * or a stateless token-based approach (JWT).
+	 */
 	public void setSessionAttribute(WebSession s, String name, Object value)
 	{
 		s.getRequest().getSession().setAttribute(name, value);
@@ -94,11 +102,19 @@ public abstract class DefaultLessonAction implements LessonAction
 		s.getRequest().setAttribute(name, value);
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200052 - Stateful Session):
+	 * Direct use of HttpSession.removeAttribute() - same concern as setAttribute.
+	 */
 	public void removeSessionAttribute(WebSession s, String name)
 	{
 		s.getRequest().getSession().removeAttribute(name);
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200052 - Stateful Session):
+	 * Direct use of HttpSession.getAttribute() - same concern as setAttribute.
+	 */
 	protected String getSessionAttribute(WebSession s, String name) throws ParameterNotFoundException
 	{
 		String value = (String) s.getRequest().getSession().getAttribute(name);

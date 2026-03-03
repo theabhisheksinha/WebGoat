@@ -221,11 +221,27 @@ public abstract class LessonAdapter extends AbstractLesson
 		s.getLessonSession(this).setCurrentLessonScreen(lessonScreen);
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200052 - Stateful Session):
+	 * Direct use of HttpSession.getAttribute() couples this code to a servlet
+	 * container's in-memory session store, which does not scale in cloud/PaaS
+	 * environments with multiple instances.
+	 * Migrate to: externalized session store (Redis, database) or stateless
+	 * token-based approach (JWT).
+	 */
 	public Object getSessionAttribute(WebSession s, String key)
 	{
 		return s.getRequest().getSession().getAttribute(key);
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200052 - Stateful Session):
+	 * Direct use of HttpSession.setAttribute() couples this code to a servlet
+	 * container's in-memory session store, which does not scale in cloud/PaaS
+	 * environments with multiple instances.
+	 * Migrate to: externalized session store (Redis, database) or stateless
+	 * token-based approach (JWT).
+	 */
 	public void setSessionAttribute(WebSession s, String key, Object value)
 	{
 		s.getRequest().getSession().setAttribute(key, value);
