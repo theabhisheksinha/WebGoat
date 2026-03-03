@@ -117,7 +117,8 @@ public class WebgoatProperties extends Properties
 		{
 			// CAST: Consider using a proper logging framework instead of System.out
 			System.out.println("Error loading properties");
-			System.err.println("Error: " + e.getMessage()); // CAST fix: replaced printStackTrace()
+			System.err.println("Error: " + e); // CAST fix: replaced printStackTrace()
+			return;
 		}
 		// CAST: Consider using a proper logging framework instead of System.out
 		System.out.println(properties.getProperty("CommandInjection.category"));
