@@ -326,12 +326,21 @@ public class UncheckedEmail extends LessonAdapter
 
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200123 - Use of sendmail utility on PaaS):
+	 * Direct SMTP mail sending via javax.mail is not available on most PaaS/cloud
+	 * platforms (e.g., AWS, Azure, GCP) which block outbound SMTP port 25/465/587.
+	 * Migrate to: cloud email service APIs (AWS SES, SendGrid, Mailgun) or
+	 * use a dedicated mail microservice behind an HTTP API.
+	 */
 	private Message sendGoogleMail(String recipients, String subject, String message, String from,
 			final String mailAccount, final String mailPassword) throws MessagingException
 	{
 		boolean debug = false;
 
 		Properties props = new Properties();
+		// MIGRATION: These hardcoded SMTP settings will not work on PaaS platforms
+		// that block direct SMTP. Replace with cloud email API (SES, SendGrid, etc.)
 		props.put("mail.smtp.host", SMTP_HOST_NAME);
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.debug", "false");
