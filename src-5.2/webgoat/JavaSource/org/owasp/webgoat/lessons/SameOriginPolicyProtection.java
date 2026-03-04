@@ -86,6 +86,7 @@ public class SameOriginPolicyProtection extends LessonAdapter
 			ec.addElement(new BR());
 
 			String webGoatURL = "lessons/Ajax/sameOrigin.jsp";
+			// MIGRATION (CAST #1200031): Hardcoded HTTP URL - externalize to configuration
 			String googleURL = "http://www.google.com/search?q=aspect+security";
 
 			ec.addElement(new BR());
