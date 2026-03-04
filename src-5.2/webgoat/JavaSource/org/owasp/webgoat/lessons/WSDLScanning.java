@@ -150,6 +150,7 @@ public class WSDLScanning extends LessonAdapter
 			call.setReturnType(XMLType.XSD_STRING);
 			call.setUsername("guest");
 			call.setPassword("guest");
+			// MIGRATION (CAST #1200031): Hardcoded HTTP URL with localhost - externalize to config
 			call.setTargetEndpointAddress("http://localhost:" + port + "/WebGoat/services/" + serv);
 			Object result = call.invoke(new Object[] { parameterValue });
 			return result;

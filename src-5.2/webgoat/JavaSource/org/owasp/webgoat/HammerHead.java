@@ -326,6 +326,7 @@ public class HammerHead extends HttpServlet
 				}
 				else
 				{
+					// MIGRATION (CAST #1200031): Hardcoded URL - should use relative path or config
 					screen = new ErrorScreen(s, "Invalid screen requested.  Try: http://localhost/WebGoat/attack");
 				}
 			}
@@ -369,6 +370,7 @@ public class HammerHead extends HttpServlet
 				}
 				else
 				{
+					// MIGRATION (CAST #1200031): Hardcoded URL - should use relative path or config
 					screen = new ErrorScreen(s,
 							"Invalid screen requested.  Try Setting Admin to false or Try: http://localhost/WebGoat/attack");
 				}
