@@ -330,12 +330,19 @@ public class LessonTracker
 	/**
 	 * Allows the storing of properties for a user and a screen.
 	 * 
+	 * MIGRATION NOTE (CAST #1200024 - Using log to file system):
+	 * This method writes tracking data to the local file system via FileOutputStream.
+	 * In cloud/container environments, local file systems are ephemeral and data
+	 * will be lost on restart or scaling events.
+	 * Migrate to: database-backed storage, cloud object storage (S3), or a
+	 * centralized logging/metrics service.
+	 * 
 	 * @param s
 	 *            Description of the Parameter
 	 */
 	public void store(WebSession s, Screen screen, String user)
 	{
-		FileOutputStream out = null;
+		FileOutputStream out = null;  // MIGRATION: File-based storage is ephemeral in cloud environments
 		String fileName = getTrackerFile(s, user, screen);
 		// System.out.println( "Storing data to" + fileName );
 		lessonProperties.setProperty(screen.getTitle() + ".completed", Boolean.toString(completed));
