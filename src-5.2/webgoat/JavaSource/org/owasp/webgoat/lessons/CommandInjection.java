@@ -126,6 +126,7 @@ public class CommandInjection extends LessonAdapter
 					illegalCommand = false;
 				}
 			}
+			// MIGRATION (CAST #1200025): java.io.File usage couples code to local file system — not portable in cloud/containers
 			File safeDir = new File(s.getContext().getRealPath("/lesson_plans"));
 
 			// Fix: HTML-encode user input to prevent reflected XSS (CAST #8408 / CWE-79)

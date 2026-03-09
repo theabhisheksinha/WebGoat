@@ -366,6 +366,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 		try
 		{
 			// get current text and compare to the new text
+			// MIGRATION (CAST #1200025): File system access via getRealPath + FileReader — not portable in cloud/containers
 			String origpath = s.getContext().getRealPath(WEBGOAT_CHALLENGE + "_" + s.getUserName() + JSP);
 			String masterFilePath = s.getContext().getRealPath(WEBGOAT_CHALLENGE_JSP);
 			String defacedText = getFileText(new BufferedReader(new FileReader(origpath)), false);
@@ -385,6 +386,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 		ElementContainer ec = new ElementContainer();
 
 		// get current text and compare to the new text
+		// MIGRATION (CAST #1200025): File system access via getRealPath + FileReader — not portable in cloud/containers
 		String origpath = s.getContext().getRealPath(WEBGOAT_CHALLENGE + "_" + s.getUserName() + JSP);
 		String defaced = getFileText(new BufferedReader(new FileReader(origpath)), false);
 		String origText = getFileText(new BufferedReader(new FileReader(s.getContext()
