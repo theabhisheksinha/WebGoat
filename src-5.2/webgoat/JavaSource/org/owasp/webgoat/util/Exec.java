@@ -492,8 +492,9 @@ public class Exec
 	public static void main(String[] args)
 	{
 		ExecResults results;
+		// MIGRATION (CAST #1200001): System.getProperty() reads JVM/OS property — externalize for cloud
 		String sep = System.getProperty("line.separator");
-		System.out.println("-------------------------------------------" + sep + "TEST 1: execSimple");
+		System.out.println("-------------------------------------------"+ sep + "TEST 1: execSimple");
 		results = Exec.execSimple("c:/swarm-2.1.1/bin/whoami.exe");
 		System.out.println(results);
 		System.out.println("-------------------------------------------" + sep + "TEST 2: execSimple (with search)");

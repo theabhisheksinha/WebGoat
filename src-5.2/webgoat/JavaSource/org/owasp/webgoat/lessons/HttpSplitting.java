@@ -90,7 +90,8 @@ public class HttpSplitting extends SequentialLessonAdapter
 			if (lang.length() != 0 && fromRedirect.length() != 0)
 			{
 				// Split by the line separator line.separator is platform independant
-				String lineSep = System.getProperty("line.separator");
+					// MIGRATION (CAST #1200001): System.getProperty() — consider platform-independent constant
+					String lineSep = System.getProperty("line.separator");
 				String[] arrTokens = lang.toString().toUpperCase().split(lineSep);
 
 				// Check if the user ended the first request and wrote the second malacious reply
@@ -193,6 +194,7 @@ public class HttpSplitting extends SequentialLessonAdapter
 
 			if (lang.length() != 0 && fromRedirect.length() != 0)
 			{
+				// MIGRATION (CAST #1200001): System.getProperty() — consider platform-independent constant
 				String lineSep = System.getProperty("line.separator");
 				String dateStr = lang.substring(lang.indexOf("Last-Modified:") + "Last-Modified:".length(), lang
 						.indexOf(lineSep, lang.indexOf("Last-Modified:")));
