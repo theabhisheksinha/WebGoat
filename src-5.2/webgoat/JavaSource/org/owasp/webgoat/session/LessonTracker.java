@@ -173,6 +173,7 @@ public class LessonTracker
 
 	public static String getUserDir(WebSession s)
 	{
+		// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 		return s.getContext().getRealPath("users") + "/";
 	}
 
