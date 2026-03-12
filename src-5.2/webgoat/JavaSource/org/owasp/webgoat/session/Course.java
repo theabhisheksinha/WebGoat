@@ -81,6 +81,7 @@ public class Course
 	 */
 	private static String getFileName(String s)
 	{
+		// MIGRATION (CAST #1200025): java.io.File usage couples code to local file system — not portable in cloud/containers
 		String fileName = new File(s).getName();
 
 		if (fileName.indexOf("/") != -1)
