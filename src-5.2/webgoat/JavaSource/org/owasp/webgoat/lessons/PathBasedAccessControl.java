@@ -66,6 +66,7 @@ public class PathBasedAccessControl extends LessonAdapter
 
 		try
 		{
+			// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 			String dir = s.getContext().getRealPath("/lesson_plans");
 			File d = new File(dir);
 

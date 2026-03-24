@@ -577,6 +577,7 @@ public class WebSession
 	public String getWebResource(String fileName)
 	{
 		// Note: doesn't work for admin path! Maybe with a ../ attack
+		// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 		return (context.getRealPath(fileName));
 	}
 

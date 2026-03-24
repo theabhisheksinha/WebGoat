@@ -253,6 +253,7 @@ public class HammerHead extends HttpServlet
 	{
 		httpDateFormat = new SimpleDateFormat("EEE, dd MMM yyyyy HH:mm:ss z", Locale.US);
 		httpDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 		propertiesPath = getServletContext().getRealPath("./WEB-INF/webgoat.properties");
 		webgoatContext = new WebgoatContext(this);
 	}

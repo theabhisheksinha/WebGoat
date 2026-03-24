@@ -110,6 +110,7 @@ public class CommandInjection extends LessonAdapter
 					if (upDirCount(helpFile) <= 3)
 					{
 						// FIXME: This value isn't used. What is the goal here?
+						// MIGRATION (CAST #1200006): getRealPath() resolves to local FS — not portable in cloud/containers
 						s.getContext().getRealPath("/");
 						illegalCommand = false;
 					}
