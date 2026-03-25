@@ -68,6 +68,7 @@ public class PathBasedAccessControl extends LessonAdapter
 		{
 			// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 			String dir = s.getContext().getRealPath("/lesson_plans");
+			// MIGRATION (CAST #1200007): Direct file system manipulation — not portable in cloud/container environments
 			File d = new File(dir);
 
 			Table t = new Table().setCellSpacing(0).setCellPadding(2).setWidth("90%").setAlign("center");
@@ -130,6 +131,7 @@ public class PathBasedAccessControl extends LessonAdapter
 			// File f = new File( new URI("file:///" +
 			// Encoding.urlEncode(dir).replaceAll("\\\\","/") + "/" +
 			// file.replaceAll("\\\\","/")) );
+			// MIGRATION (CAST #1200007): File manipulation via java.io.File — use cloud storage or abstraction layer
 			File f = new File((dir + "\\" + file).replaceAll("\\\\", "/"));
 
 			if (s.isDebug())
@@ -182,6 +184,7 @@ public class PathBasedAccessControl extends LessonAdapter
 					ec.addElement("Viewing file: " + f.getCanonicalPath());
 					ec.addElement(new HR().setWidth("100%"));
 					if (f.length() > 80000) { throw new Exception("File is too large"); }
+					// MIGRATION (CAST #1200007): FileReader reads from local FS — use cloud storage API
 					String fileData = getFileText(new BufferedReader(new FileReader(f)), false);
 					if (fileData.indexOf(0x00) != -1) { throw new Exception("File is binary"); }
 					ec.addElement(new StringElement(fileData.replaceAll(System.getProperty("line.separator"), "<br>")

@@ -201,6 +201,7 @@ public class LessonTracker
 			{
 				Properties tempProps = new Properties();
 				// System.out.println("Loading lesson state from: " + fileName);
+				// MIGRATION (CAST #1200007): FileInputStream reads from local FS — use cloud storage in cloud deployments
 				in = new FileInputStream(fileName);
 				tempProps.load(in);
 				// allow the screen to use any custom properties it may have set
@@ -356,6 +357,7 @@ public class LessonTracker
 		lessonProperties.setProperty(screen.getTitle() + ".viewedSource", Boolean.toString(viewedSource));
 		try
 		{
+			// MIGRATION (CAST #1200007): FileOutputStream writes to local FS — use cloud storage in cloud deployments
 			out = new FileOutputStream(fileName);
 			lessonProperties.store(out, s.getUserName());
 		} catch (Exception e)

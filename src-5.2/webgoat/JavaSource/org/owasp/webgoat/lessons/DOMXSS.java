@@ -269,6 +269,7 @@ public class DOMXSS extends SequentialLessonAdapter
 
 		try
 		{
+			// MIGRATION (CAST #1200007): File manipulation via FileReader — not portable in cloud/container environments
 			is = new BufferedReader(new FileReader(new File(content)));
 			String s = null;
 
