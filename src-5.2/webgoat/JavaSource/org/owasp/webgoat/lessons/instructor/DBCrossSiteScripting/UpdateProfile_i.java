@@ -127,6 +127,36 @@ GO
 
 */
 
+/*
+FOR POSTGRESQL (webgoat_postgresql.sql), the Stage 2 fix is:
+
+Note: regex_match() returns INTEGER (1 = match, 0 = no match) to stay
+compatible with the SQL Server BIT-based "= 0" pattern.
+
+CREATE OR REPLACE FUNCTION webgoat_guest.update_employee(
+    p_userid INT, p_first_name VARCHAR(20), p_last_name VARCHAR(20),
+    p_ssn VARCHAR(12), p_title VARCHAR(20), p_phone VARCHAR(13),
+    p_address1 VARCHAR(80), p_address2 VARCHAR(80), p_manager INT,
+    p_start_date CHAR(8), p_salary INT, p_ccn VARCHAR(30),
+    p_ccn_limit INT, p_disciplined_date CHAR(8),
+    p_disciplined_notes VARCHAR(60), p_personal_description VARCHAR(60)
+) RETURNS VOID AS $$
+BEGIN
+    IF webgoat_guest.regex_match(p_address1, '^[a-zA-Z0-9,\. ]{0,80}$') = 0 THEN
+        RAISE EXCEPTION 'Illegal characters in address1';
+    END IF;
+    UPDATE webgoat_guest.employee SET
+        first_name = p_first_name, last_name = p_last_name, ssn = p_ssn,
+        title = p_title, phone = p_phone, address1 = p_address1,
+        address2 = p_address2, manager = p_manager, start_date = p_start_date,
+        salary = p_salary, ccn = p_ccn, ccn_limit = p_ccn_limit,
+        disciplined_date = p_disciplined_date, disciplined_notes = p_disciplined_notes,
+        personal_description = p_personal_description
+    WHERE userid = p_userid;
+END;
+$$ LANGUAGE plpgsql;
+*/
+
 public class UpdateProfile_i extends UpdateProfile
 {
 	public UpdateProfile_i(GoatHillsFinancial lesson, String lessonName, String actionName, LessonAction chainedAction)

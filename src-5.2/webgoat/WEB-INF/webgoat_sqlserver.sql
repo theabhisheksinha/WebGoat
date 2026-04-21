@@ -1,3 +1,7 @@
+-- DEPRECATED: This SQL Server script has been migrated to PostgreSQL.
+-- See webgoat_postgresql.sql for the PostgreSQL-compatible version.
+-- Migration performed per CAST Imaging Advisor #1202247 (SQL Server Database to PostgreSQL).
+
 EXEC sp_configure 'clr enabled', 1
 GO
 
