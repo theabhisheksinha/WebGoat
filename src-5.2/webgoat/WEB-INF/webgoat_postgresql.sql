@@ -15,7 +15,7 @@
 --  10. EXEC sp_configure / RECONFIGURE -> removed (not applicable)
 --  11. USE database -> \connect (handled externally)
 --  12. CREATE SCHEMA -> CREATE SCHEMA IF NOT EXISTS
---  13. BIT return type -> BOOLEAN
+--  13. BIT return type -> INTEGER (0/1) for API compatibility
 --  14. CREATE ASSEMBLY / EXTERNAL NAME -> removed (CLR not supported)
 
 -- Drop existing objects if they exist
@@ -193,11 +193,19 @@ $$ LANGUAGE plpgsql;
 -- The following function provides equivalent functionality using built-in regex.
 DROP FUNCTION IF EXISTS webgoat_guest.regex_match(VARCHAR, VARCHAR);
 
+-- Returns INTEGER (1 = match, 0 = no match) to preserve compatibility with
+-- the original SQL Server BIT return type.  The instructor Stage 2 solution
+-- (see UpdateProfile_i.java) tests "RegexMatch(...) = 0", so returning
+-- BOOLEAN would break that pattern.
 CREATE OR REPLACE FUNCTION webgoat_guest.regex_match(
     p_input VARCHAR,
     p_pattern VARCHAR
-) RETURNS BOOLEAN AS $$
+) RETURNS INTEGER AS $$
 BEGIN
-    RETURN p_input ~ p_pattern;
+    IF p_input ~ p_pattern THEN
+        RETURN 1;
+    ELSE
+        RETURN 0;
+    END IF;
 END;
 $$ LANGUAGE plpgsql;
