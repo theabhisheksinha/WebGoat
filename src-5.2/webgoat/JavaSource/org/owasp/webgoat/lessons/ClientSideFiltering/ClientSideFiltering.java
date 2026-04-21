@@ -418,6 +418,7 @@ public class ClientSideFiltering extends SequentialLessonAdapter
 
 		try
 		{
+			// MIGRATION (CAST #1200025): java.io.File usage couples code to local file system — not portable in cloud/containers
 			is = new BufferedReader(new FileReader(new File(content)));
 			String s = null;
 

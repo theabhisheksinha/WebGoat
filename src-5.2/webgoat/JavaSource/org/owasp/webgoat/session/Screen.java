@@ -163,6 +163,7 @@ public abstract class Screen
 	protected Element makeLogo()
 	{
 
+		// MIGRATION (CAST #1200031): Hardcoded HTTP URL - should be externalized to config
 		return new A("http://www.aspectsecurity.com/webgoat.html", logo);
 	}
 

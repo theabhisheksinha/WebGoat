@@ -46,6 +46,7 @@ public class WebgoatProperties extends Properties
 		FileInputStream in = null;
 		try
 		{
+			// MIGRATION (CAST #1200007): FileInputStream reads from local FS — externalize config in cloud
 			in = new FileInputStream(propertiesFileName);
 			load(in);
 		} catch (IOException e)

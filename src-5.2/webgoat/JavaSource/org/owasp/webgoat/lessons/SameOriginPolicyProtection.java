@@ -20,6 +20,7 @@ import org.owasp.webgoat.session.WebSession;
 
 public class SameOriginPolicyProtection extends LessonAdapter
 {
+	// MIGRATION (CAST #1200031): Hardcoded HTTP URL - externalize to configuration
 	public final static A ASPECT_LOGO = new A().setHref("http://www.aspectsecurity.com")
 			.addElement(
 						new IMG("images/logos/aspect.jpg").setAlt("Aspect Security").setBorder(0).setHspace(0)
@@ -85,6 +86,7 @@ public class SameOriginPolicyProtection extends LessonAdapter
 			ec.addElement(new BR());
 
 			String webGoatURL = "lessons/Ajax/sameOrigin.jsp";
+			// MIGRATION (CAST #1200031): Hardcoded HTTP URL - externalize to configuration
 			String googleURL = "http://www.google.com/search?q=aspect+security";
 
 			ec.addElement(new BR());

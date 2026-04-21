@@ -119,6 +119,7 @@ public class WebgoatContext
 	{
 		if (realConnectionString == null) try
 		{
+			// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 			String path = servlet.getServletContext().getRealPath("/database").replace('\\', '/');
 			System.out.println("PATH: " + path);
 			realConnectionString = databaseConnectionString.replaceAll("PATH", path);

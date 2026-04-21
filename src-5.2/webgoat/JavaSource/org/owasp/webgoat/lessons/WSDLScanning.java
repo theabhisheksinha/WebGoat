@@ -67,7 +67,13 @@ import org.owasp.webgoat.session.WebgoatContext;
  * 
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
+ * 
+ * @deprecated This class uses deprecated Apache Axis JAX-RPC framework (javax.xml.rpc).
+ *             Migration path: Replace Apache Axis 1.x JAX-RPC with JAX-WS (javax.xml.ws)
+ *             or a modern REST-based approach. JAX-RPC was removed in Java EE 9+.
+ *             See: https://jakarta.ee/specifications/xml-web-services/
  */
+@Deprecated
 public class WSDLScanning extends LessonAdapter
 {
 
@@ -156,11 +162,16 @@ public class WSDLScanning extends LessonAdapter
 			QName operationName = new QName(targetNamespace, proc);
 			Service service = new Service();   // TODO: Replace with javax.xml.ws.Service.create(wsdlURL, serviceName)
 			Call call = (Call) service.createCall();  // TODO: Replace with service.getPort(portClass) or Dispatch
+			// MIGRATION NOTE: Replace org.apache.axis.client.Service with javax.xml.ws.Service
+			// and org.apache.axis.client.Call with javax.xml.ws.Dispatch or generated client stubs
+			Service service = new Service();
+			Call call = (Call) service.createCall();
 			call.setOperationName(operationName);
 			call.addParameter(parameterName, serviceName, ParameterMode.INOUT);  // TODO: Remove - JAXB handles this
 			call.setReturnType(XMLType.XSD_STRING);  // TODO: Remove - JAXB handles return type mapping
 			call.setUsername("guest");
 			call.setPassword("guest");
+			// MIGRATION (CAST #1200031): Hardcoded HTTP URL with localhost - externalize to config
 			call.setTargetEndpointAddress("http://localhost:" + port + "/WebGoat/services/" + serv);
 			Object result = call.invoke(new Object[] { parameterValue });
 			return result;
