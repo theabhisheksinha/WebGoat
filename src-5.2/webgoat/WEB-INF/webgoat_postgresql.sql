@@ -19,8 +19,8 @@
 --  14. CREATE ASSEMBLY / EXTERNAL NAME -> removed (CLR not supported)
 
 -- Drop existing objects if they exist
-DROP ROLE IF EXISTS webgoat_guest;
 DROP SCHEMA IF EXISTS webgoat_guest CASCADE;
+DROP ROLE IF EXISTS webgoat_guest;
 
 -- Note: In PostgreSQL, database creation is typically done externally:
 --   CREATE DATABASE webgoat;
