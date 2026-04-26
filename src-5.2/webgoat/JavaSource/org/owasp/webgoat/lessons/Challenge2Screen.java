@@ -366,6 +366,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 		try
 		{
 			// get current text and compare to the new text
+			// MIGRATION (CAST #1200025): File system access via getRealPath + FileReader — not portable in cloud/containers
 			String origpath = s.getContext().getRealPath(WEBGOAT_CHALLENGE + "_" + s.getUserName() + JSP);
 			String masterFilePath = s.getContext().getRealPath(WEBGOAT_CHALLENGE_JSP);
 			String defacedText = getFileText(new BufferedReader(new FileReader(origpath)), false);
@@ -385,6 +386,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 		ElementContainer ec = new ElementContainer();
 
 		// get current text and compare to the new text
+		// MIGRATION (CAST #1200025): File system access via getRealPath + FileReader — not portable in cloud/containers
 		String origpath = s.getContext().getRealPath(WEBGOAT_CHALLENGE + "_" + s.getUserName() + JSP);
 		String defaced = getFileText(new BufferedReader(new FileReader(origpath)), false);
 		String origText = getFileText(new BufferedReader(new FileReader(s.getContext()
@@ -401,6 +403,12 @@ public class Challenge2Screen extends SequentialLessonAdapter
 		return ec;
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200024 - Using log to file system):
+	 * This method writes directly to the local file system via FileWriter.
+	 * In cloud/container environments, local file systems are ephemeral.
+	 * Migrate to: cloud object storage (S3) or database-backed persistence.
+	 */
 	private void resetWebPage(WebSession s)
 	{
 		try
@@ -411,7 +419,7 @@ public class Challenge2Screen extends SequentialLessonAdapter
 
 			// replace the defaced text with the original
 			File usersFile = new File(defacedpath);
-			FileWriter fw = new FileWriter(usersFile);
+			FileWriter fw = new FileWriter(usersFile);  // MIGRATION: FileWriter targets ephemeral local FS
 			fw.write(getFileText(new BufferedReader(new FileReader(masterFilePath)), false));
 			fw.close();
 			// System.out.println("webgoat_guest replaced: " + getFileText( new

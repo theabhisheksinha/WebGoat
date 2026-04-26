@@ -81,6 +81,7 @@ public abstract class LessonAdapter extends AbstractLesson
 			try
 			{
 				PRE pre = new PRE();
+				// MIGRATION (CAST #1200007): FileReader reads from local FS — use cloud storage API in cloud deployments
 				BufferedReader in = new BufferedReader(new FileReader(fileName));
 				String line = null;
 				while ((line = in.readLine()) != null)
@@ -171,6 +172,7 @@ public abstract class LessonAdapter extends AbstractLesson
 			String fileName = s.getWebResource(getLessonPlanFileName());
 			if (fileName != null)
 			{
+				// MIGRATION (CAST #1200007): FileReader reads from local FS — use cloud storage API in cloud deployments
 				BufferedReader in = new BufferedReader(new FileReader(fileName));
 				String line = null;
 				boolean startAppending = false;

@@ -136,6 +136,8 @@ public class DBCrossSiteScripting extends GoatHillsFinancial
 						+ "Implement a fix in the stored procedure to prevent the stored XSS from being written to the database. ";
 				if (getWebgoatContext().getDatabaseDriver().contains("jtds"))
 					instructions += "Use the provided user-defined function RegexMatch to test the data against a pattern. ";
+				else if (getWebgoatContext().getDatabaseDriver().contains("postgresql"))
+					instructions += "Use the provided user-defined function regex_match to test the data against a pattern (returns 1 for match, 0 for no match). ";
 				instructions += "A sample regular expression pattern: ^[a-zA-Z0-9,\\. ]{0,80}$ "
 						+ "Repeat stage 1 as 'Eric' with 'David' as the manager.  Verify that 'David' is not affected by the attack.";
 			}
@@ -236,7 +238,7 @@ public class DBCrossSiteScripting extends GoatHillsFinancial
 	protected boolean getDefaultHidden()
 	{
 		String driver = getWebgoatContext().getDatabaseDriver();
-		boolean hidden = !(driver.contains("oracle") || driver.contains("jtds"));
+		boolean hidden = !(driver.contains("oracle") || driver.contains("jtds") || driver.contains("postgresql"));
 		return hidden;
 	}
 

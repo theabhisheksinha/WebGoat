@@ -13,11 +13,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.namespace.QName;
-import javax.xml.rpc.ParameterMode;
-import javax.xml.rpc.ServiceException;
-import org.apache.axis.client.Call;
-import org.apache.axis.client.Service;
-import org.apache.axis.encoding.XMLType;
+import javax.xml.rpc.ParameterMode;      // MIGRATION: JAX-RPC is removed in Java EE 9+; replace with JAX-WS
+import javax.xml.rpc.ServiceException;   // MIGRATION: JAX-RPC is removed in Java EE 9+; replace with JAX-WS
+import org.apache.axis.client.Call;       // MIGRATION: Apache Axis 1.x is EOL; replace with JAX-WS Dispatch or generated stubs
+import org.apache.axis.client.Service;    // MIGRATION: Apache Axis 1.x is EOL; replace with javax.xml.ws.Service
+import org.apache.axis.encoding.XMLType;  // MIGRATION: Apache Axis 1.x is EOL; use JAXB for XML type mapping
 import org.apache.ecs.Element;
 import org.apache.ecs.ElementContainer;
 import org.apache.ecs.html.A;
@@ -67,7 +67,13 @@ import org.owasp.webgoat.session.WebgoatContext;
  * 
  * TODO To change the template for this generated type comment go to Window - Preferences - Java -
  * Code Style - Code Templates
+ * 
+ * @deprecated This class uses deprecated Apache Axis JAX-RPC framework (javax.xml.rpc).
+ *             Migration path: Replace Apache Axis 1.x JAX-RPC with JAX-WS (javax.xml.ws)
+ *             or a modern REST-based approach. JAX-RPC was removed in Java EE 9+.
+ *             See: https://jakarta.ee/specifications/xml-web-services/
  */
+@Deprecated
 public class WSDLScanning extends LessonAdapter
 {
 
@@ -137,6 +143,17 @@ public class WSDLScanning extends LessonAdapter
 		return "WSDL Scanning";
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200374 - JAX-RPC Technology):
+	 * This method uses the deprecated JAX-RPC programming model (javax.xml.rpc.Call,
+	 * javax.xml.rpc.ParameterMode) via Apache Axis 1.x.
+	 *
+	 * To migrate to JAX-WS:
+	 *   1. Generate client stubs from WSDL using wsimport (or use javax.xml.ws.Dispatch)
+	 *   2. Replace org.apache.axis.client.Service with javax.xml.ws.Service
+	 *   3. Replace org.apache.axis.client.Call with generated port/stub interface
+	 *   4. Remove ParameterMode and XMLType references (JAXB handles marshalling)
+	 */
 	public Object accessWGService(String serv, int port, String proc, String parameterName, Object parameterValue)
 	{
 		String targetNamespace = "WebGoat";
@@ -144,11 +161,15 @@ public class WSDLScanning extends LessonAdapter
 		{
 			QName serviceName = new QName(targetNamespace, serv);
 			QName operationName = new QName(targetNamespace, proc);
+			Service service = new Service();   // TODO: Replace with javax.xml.ws.Service.create(wsdlURL, serviceName)
+			Call call = (Call) service.createCall();  // TODO: Replace with service.getPort(portClass) or Dispatch
+			// MIGRATION NOTE: Replace org.apache.axis.client.Service with javax.xml.ws.Service
+			// and org.apache.axis.client.Call with javax.xml.ws.Dispatch or generated client stubs
 			Service service = new Service();
 			Call call = (Call) service.createCall();
 			call.setOperationName(operationName);
-			call.addParameter(parameterName, serviceName, ParameterMode.INOUT);
-			call.setReturnType(XMLType.XSD_STRING);
+			call.addParameter(parameterName, serviceName, ParameterMode.INOUT);  // TODO: Remove - JAXB handles this
+			call.setReturnType(XMLType.XSD_STRING);  // TODO: Remove - JAXB handles return type mapping
 			call.setUsername("guest");
 			call.setPassword("guest");
 			// MIGRATION (CAST #1200042): Unsecured HTTP protocol - should use HTTPS in production

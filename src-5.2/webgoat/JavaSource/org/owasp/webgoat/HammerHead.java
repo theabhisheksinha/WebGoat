@@ -253,6 +253,7 @@ public class HammerHead extends HttpServlet
 	{
 		httpDateFormat = new SimpleDateFormat("EEE, dd MMM yyyyy HH:mm:ss z", Locale.US);
 		httpDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+		// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 		propertiesPath = getServletContext().getRealPath("./WEB-INF/webgoat.properties");
 		webgoatContext = new WebgoatContext(this);
 	}
@@ -326,6 +327,7 @@ public class HammerHead extends HttpServlet
 				}
 				else
 				{
+					// MIGRATION (CAST #1200031): Hardcoded URL - should use relative path or config
 					screen = new ErrorScreen(s, "Invalid screen requested.  Try: http://localhost/WebGoat/attack");
 				}
 			}
@@ -369,6 +371,7 @@ public class HammerHead extends HttpServlet
 				}
 				else
 				{
+					// MIGRATION (CAST #1200031): Hardcoded URL - should use relative path or config
 					screen = new ErrorScreen(s,
 							"Invalid screen requested.  Try Setting Admin to false or Try: http://localhost/WebGoat/attack");
 				}

@@ -173,6 +173,7 @@ public class LessonTracker
 
 	public static String getUserDir(WebSession s)
 	{
+		// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 		return s.getContext().getRealPath("users") + "/";
 	}
 
@@ -200,6 +201,7 @@ public class LessonTracker
 			{
 				Properties tempProps = new Properties();
 				// System.out.println("Loading lesson state from: " + fileName);
+				// MIGRATION (CAST #1200007): FileInputStream reads from local FS — use cloud storage in cloud deployments
 				in = new FileInputStream(fileName);
 				tempProps.load(in);
 				// allow the screen to use any custom properties it may have set
@@ -330,12 +332,19 @@ public class LessonTracker
 	/**
 	 * Allows the storing of properties for a user and a screen.
 	 * 
+	 * MIGRATION NOTE (CAST #1200024 - Using log to file system):
+	 * This method writes tracking data to the local file system via FileOutputStream.
+	 * In cloud/container environments, local file systems are ephemeral and data
+	 * will be lost on restart or scaling events.
+	 * Migrate to: database-backed storage, cloud object storage (S3), or a
+	 * centralized logging/metrics service.
+	 * 
 	 * @param s
 	 *            Description of the Parameter
 	 */
 	public void store(WebSession s, Screen screen, String user)
 	{
-		FileOutputStream out = null;
+		FileOutputStream out = null;  // MIGRATION: File-based storage is ephemeral in cloud environments
 		String fileName = getTrackerFile(s, user, screen);
 		// System.out.println( "Storing data to" + fileName );
 		lessonProperties.setProperty(screen.getTitle() + ".completed", Boolean.toString(completed));
@@ -348,6 +357,7 @@ public class LessonTracker
 		lessonProperties.setProperty(screen.getTitle() + ".viewedSource", Boolean.toString(viewedSource));
 		try
 		{
+			// MIGRATION (CAST #1200007): FileOutputStream writes to local FS — use cloud storage in cloud deployments
 			out = new FileOutputStream(fileName);
 			lessonProperties.store(out, s.getUserName());
 		} catch (Exception e)

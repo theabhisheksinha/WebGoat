@@ -110,6 +110,7 @@ public class CommandInjection extends LessonAdapter
 					if (upDirCount(helpFile) <= 3)
 					{
 						// FIXME: This value isn't used. What is the goal here?
+						// MIGRATION (CAST #1200006): getRealPath() resolves to local FS — not portable in cloud/containers
 						s.getContext().getRealPath("/");
 						illegalCommand = false;
 					}
@@ -126,6 +127,7 @@ public class CommandInjection extends LessonAdapter
 					illegalCommand = false;
 				}
 			}
+			// MIGRATION (CAST #1200025): java.io.File usage couples code to local file system — not portable in cloud/containers
 			File safeDir = new File(s.getContext().getRealPath("/lesson_plans"));
 
 			// Fix: HTML-encode user input to prevent reflected XSS (CAST #8408 / CWE-79)

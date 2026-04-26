@@ -198,10 +198,11 @@ public class FindProfile extends DefaultLessonAction
 			getIntRequestAttribute(s, getLessonName() + "." + CrossSiteScripting.EMPLOYEE_ID);
 			found = true;
 		} catch (ParameterNotFoundException e)
-		{
-		}
+			{
+				System.out.println("Warning: employee ID parameter not found: " + e.getMessage());
+			}
 
-		return found;
+			return found;
 	}
 
 	protected String validate(final String parameter, final Pattern pattern) throws ValidationException

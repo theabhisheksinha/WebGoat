@@ -136,6 +136,7 @@ public class XPATHInjection extends LessonAdapter
 				return ec;
 			}
 
+			// MIGRATION (CAST #1200006): getRealPath() resolves to local FS directory — not portable in cloud/containers
 			String dir = s.getContext().getRealPath("/lessons/XPATHInjection/EmployeesData.xml");
 				File d = new File(dir);
 				XPathFactory factory = XPathFactory.newInstance();
