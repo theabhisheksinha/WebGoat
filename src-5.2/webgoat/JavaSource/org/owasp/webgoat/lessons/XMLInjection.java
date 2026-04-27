@@ -102,8 +102,9 @@ public class XMLInjection extends LessonAdapter
 			{
 				if (s.getParser().getRawParameter(ACCOUNTID, "").equals("836239"))
 				{
+					// MIGRATION (CAST #1200001): System.getProperty() — consider platform-independent constant
 					String lineSep = System.getProperty("line.separator");
-					String xmlStr = "<root>" + lineSep + "<reward>WebGoat Mug 20 Pts</reward>" + lineSep
+						String xmlStr= "<root>" + lineSep + "<reward>WebGoat Mug 20 Pts</reward>" + lineSep
 							+ "<reward>WebGoat t-shirt 50 Pts</reward>" + lineSep
 							+ "<reward>WebGoat Secure Kettle 30 Pts</reward>" + lineSep + "</root>";
 					s.getResponse().setContentType("text/xml");
@@ -138,8 +139,9 @@ public class XMLInjection extends LessonAdapter
 		{
 			isDone = true;
 		}
+		// MIGRATION (CAST #1200001): System.getProperty() — consider platform-independent constant
 		String lineSep = System.getProperty("line.separator");
-		// Fix: Use StringBuilder to avoid indirect String concatenation (CAST / CWE-1050)
+		// Fix: Use StringBuilderto avoid indirect String concatenation (CAST / CWE-1050)
 		StringBuilder scriptBuilder = new StringBuilder();
 		scriptBuilder.append("<script>").append(lineSep);
 		scriptBuilder.append("function getRewards() {").append(lineSep);

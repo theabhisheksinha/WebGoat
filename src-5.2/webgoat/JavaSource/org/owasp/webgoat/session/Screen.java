@@ -284,6 +284,7 @@ public abstract class Screen
 		 * checking and only do "&nbsp" conversion in lines that won't exceed screen size, say less
 		 * than 80 characters.
 		 */
+		// MIGRATION (CAST #1200001): System.getProperty() reads JVM/OS property — externalize for cloud
 		String[] metaChar = { "&", "<", ">", "\"", "\t", System.getProperty("line.separator") };
 
 		String[] htmlCode = { "&amp;", "&lt;", "&gt;", "&quot;", "    ", "<br>" };

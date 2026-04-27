@@ -53,6 +53,7 @@ public class CommandInjection extends LessonAdapter
 {
 	private final static String HELP_FILE = "HelpFile";
 
+	// MIGRATION (CAST #1200001): System.getProperty() reads JVM/OS properties — externalize for cloud
 	private String osName = System.getProperty("os.name");
 
 	/**
@@ -167,6 +168,7 @@ public class CommandInjection extends LessonAdapter
 				ec.addElement(new BR());
 				ec.addElement(new BR());
 				ec.addElement(new HR().setWidth("90%"));
+				// MIGRATION (CAST #1200001): System.getProperty() — consider platform-independent constant
 				ec.addElement(new StringElement(fileData.replaceAll(System.getProperty("line.separator"), "<br>")
 						.replaceAll("(?s)<!DOCTYPE.*/head>", "").replaceAll("<br><br>", "<br>")
 						.replaceAll("<br>\\s<br>", "<br>")));

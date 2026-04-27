@@ -102,9 +102,17 @@ public class WebgoatContext
 
 	}
 
+	/**
+	 * MIGRATION NOTE (CAST #1200001 - Access to environment variable):
+	 * System.getenv() reads OS-level environment variables directly, which
+	 * couples the application to the host environment. In cloud/container
+	 * deployments, prefer externalized configuration (e.g., Spring Cloud Config,
+	 * Consul, AWS Parameter Store) or a 12-factor-style config library that
+	 * abstracts the source of configuration values.
+	 */
 	private String getParameter(HttpServlet servlet, String key)
 	{
-		String value = System.getenv().get(key);
+		String value = System.getenv().get(key);  // MIGRATION: direct env-var access — externalize for cloud
 		if (value == null) value = servlet.getInitParameter(key);
 		return value;
 	}

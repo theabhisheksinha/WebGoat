@@ -315,6 +315,7 @@ public class ExecResults
 	 */
 	public String toString()
 	{
+		// MIGRATION (CAST #1200001): System.getProperty() reads JVM/OS property — externalize for cloud
 		String sep = System.getProperty("line.separator");
 		StringBuffer value = new StringBuffer();
 		value.append("ExecResults for \'" + myCommand + "\'" + sep);

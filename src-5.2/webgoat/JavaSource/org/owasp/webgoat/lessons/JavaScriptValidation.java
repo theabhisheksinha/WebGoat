@@ -88,8 +88,9 @@ public class JavaScriptValidation extends LessonAdapter
 		Pattern pattern5 = Pattern.compile(regex5);
 		Pattern pattern6 = Pattern.compile(regex6);
 		Pattern pattern7 = Pattern.compile(regex7);
+		// MIGRATION (CAST #1200001): System.getProperty() reads JVM/OS property — use platform-independent constant
 		String lineSep = System.getProperty("line.separator");
-		String script = "<SCRIPT>" + lineSep + "regex1=/" + regex1 + "/;" + lineSep + "regex2=/" + regex2 + "/;"
+		String script = "<SCRIPT>"+ lineSep + "regex1=/" + regex1 + "/;" + lineSep + "regex2=/" + regex2 + "/;"
 				+ lineSep + "regex3=/" + regex3 + "/;" + lineSep + "regex4=/" + regex4 + "/;" + lineSep + "regex5=/"
 				+ regex5 + "/;" + lineSep + "regex6=/" + regex6 + "/;" + lineSep + "regex7=/" + regex7 + "/;" + lineSep
 				+ "function validate() { " + lineSep + "msg='JavaScript found form errors'; err=0; " + lineSep
