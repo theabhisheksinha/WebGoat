@@ -246,7 +246,7 @@ public class XMLInjection extends LessonAdapter
 
 					if (s.getParser().getRawParameter("check" + i, "") != "")
 					{
-						shipment.append(((Reward) rewardsMap.get(i)).getName() + "<br>");
+						shipment.append(((Reward) rewardsMap.get(i)).getName()).append("<br>");
 					}
 				}
 				shipment.insert(0, "<br><br><b>The following items will be shipped to your address:</b><br>");

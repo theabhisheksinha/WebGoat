@@ -363,7 +363,7 @@ public class WebSession
 
 	public String getCurrentLink()
 	{
-		String thisLink = "attack";
+		StringBuilder sb = new StringBuilder("attack");
 		Enumeration<String> e = request.getParameterNames();
 		boolean isFirstParameter = true;
 		while (e.hasMoreElements())
@@ -372,16 +372,16 @@ public class WebSession
 			if (isFirstParameter)
 			{
 				isFirstParameter = false;
-				thisLink += "?";
+				sb.append("?");
 			}
 			else
 			{
-				thisLink += "&";
+				sb.append("&");
 			}
-			thisLink = thisLink + name + "=" + request.getParameter(name);
+			sb.append(name).append("=").append(request.getParameter(name));
 		}
 
-		return thisLink;
+		return sb.toString();
 	}
 
 	public AbstractLesson getCurrentLesson()

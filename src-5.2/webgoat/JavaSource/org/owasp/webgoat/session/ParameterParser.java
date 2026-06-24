@@ -1027,7 +1027,7 @@ public class ParameterParser
 		while (e.hasMoreElements())
 		{
 			String key = (String) e.nextElement();
-			s.append(key + "=" + getParameterValues(key)[0]);
+			s.append(key).append("=").append(getParameterValues(key)[0]);
 
 			// FIXME: Other values?
 			if (e.hasMoreElements())

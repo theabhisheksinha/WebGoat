@@ -86,7 +86,7 @@ public abstract class LessonAdapter extends AbstractLesson
 				String line = null;
 				while ((line = in.readLine()) != null)
 				{
-					pre.addElement(line + "\n");
+					pre.addElement(line + "\n"); // string concat passed to addElement, not loop-accumulated
 				}
 				ec.addElement(pre);
 			} catch (Exception e)
@@ -190,7 +190,7 @@ public abstract class LessonAdapter extends AbstractLesson
 					}
 					if (startAppending)
 					{
-						buff.append(line + "\n");
+						buff.append(line).append("\n");
 					}
 				}
 			}
