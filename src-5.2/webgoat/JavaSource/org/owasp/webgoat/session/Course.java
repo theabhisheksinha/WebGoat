@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import org.owasp.webgoat.HammerHead;
 import org.owasp.webgoat.lessons.AbstractLesson;
@@ -373,45 +375,67 @@ public class Course
 	 */
 	private void loadResources()
 	{
-		Iterator lessonItr = lessons.iterator();
+		// Green optimization: pre-index files by suffix and name to avoid nested loops (CAST #1200137)
+		// Build lookup maps so we do a single pass over files instead of O(lessons * files)
+		Map<String, String> sourceFileMap = new HashMap<String, String>();
+		Map<String, String> lessonPlanMap = new HashMap<String, String>();
+		Map<String, String> lessonSolutionMap = new HashMap<String, String>();
 
+		Iterator fileItr = files.iterator();
+		while (fileItr.hasNext())
+		{
+			String absoluteFile = (String) fileItr.next();
+			String fileName = getFileName(absoluteFile);
+			sourceFileMap.put(absoluteFile, absoluteFile);
+
+			if (absoluteFile.startsWith("/lesson_plans") && absoluteFile.endsWith(".html"))
+			{
+				lessonPlanMap.put(fileName, absoluteFile);
+			}
+			if (absoluteFile.startsWith("/lesson_solutions") && absoluteFile.endsWith(".html"))
+			{
+				lessonSolutionMap.put(fileName, absoluteFile);
+			}
+		}
+
+		Iterator lessonItr = lessons.iterator();
 		while (lessonItr.hasNext())
 		{
 			AbstractLesson lesson = (AbstractLesson) lessonItr.next();
 			String className = lesson.getClass().getName();
 			String classFile = getSourceFile(className);
 
-			Iterator fileItr = files.iterator();
-
-			while (fileItr.hasNext())
+			// Find source file by iterating once (still needed for endsWith match)
+			for (Iterator sItr = sourceFileMap.keySet().iterator(); sItr.hasNext();)
 			{
-				String absoluteFile = (String) fileItr.next();
-				String fileName = getFileName(absoluteFile);
-				// System.out.println("Course: looking at file: " + absoluteFile);
-
+				String absoluteFile = (String) sItr.next();
 				if (absoluteFile.endsWith(classFile))
 				{
-					// System.out.println("Set source file for " + classFile);
 					lesson.setSourceFileName(absoluteFile);
+					break;
 				}
+			}
 
-				if (absoluteFile.startsWith("/lesson_plans") && absoluteFile.endsWith(".html")
-						&& className.endsWith(fileName))
+			// Use pre-indexed maps for lesson plans and solutions
+			for (Iterator planItr = lessonPlanMap.entrySet().iterator(); planItr.hasNext();)
+			{
+				Map.Entry entry = (Map.Entry) planItr.next();
+				String fileName = (String) entry.getKey();
+				if (className.endsWith(fileName))
 				{
-					// System.out.println("DEBUG: setting lesson plan file " + absoluteFile + " for
-					// lesson " +
-					// lesson.getClass().getName());
-					// System.out.println("fileName: " + fileName + " == className: " + className );
-					lesson.setLessonPlanFileName(absoluteFile);
+					lesson.setLessonPlanFileName((String) entry.getValue());
+					break;
 				}
-				if (absoluteFile.startsWith("/lesson_solutions") && absoluteFile.endsWith(".html")
-						&& className.endsWith(fileName))
+			}
+
+			for (Iterator solItr = lessonSolutionMap.entrySet().iterator(); solItr.hasNext();)
+			{
+				Map.Entry entry = (Map.Entry) solItr.next();
+				String fileName = (String) entry.getKey();
+				if (className.endsWith(fileName))
 				{
-					// System.out.println("DEBUG: setting lesson solution file " + absoluteFile + "
-					// for lesson " +
-					// lesson.getClass().getName());
-					// System.out.println("fileName: " + fileName + " == className: " + className );
-					lesson.setLessonSolutionFileName(absoluteFile);
+					lesson.setLessonSolutionFileName((String) entry.getValue());
+					break;
 				}
 			}
 		}
